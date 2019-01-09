@@ -1,7 +1,7 @@
 egg: tools for electroglottographic analysis
 =============
 
-This repository was started in 2019 to host Matlab scripts for analysis of the electroglottographic signal:
+This repository will be used in 2019 to host Matlab scripts for analysis of the electroglottographic signal:
 
 * an improved version of peakdet, under development. The earlier (stable) version is in the COVAREP repository: https://github.com/covarep/covarep/tree/master/glottalsource/egg
 
