@@ -240,8 +240,8 @@ for n = 1:length(nonzeros(data(1,1,:)))
                     % which there are data points: the data are
                     % interpolated.
                     if and(timepts(indexBEG) > BEG, timepts(indexEN) < EN)
-                        reOQ = interp1(datafile(:,1),datafile(:,OqCOindex),timepts(indexBEG:indexEN));
-                        reDO = interp1(datafile(:,1),datafile(:,6),timepts(indexBEG:indexEN));
+                        reOQ = interp1(datafile(:,1),datafile(:,OqCOindex),timepts(indexBEG:indexEN),'spline');
+                        reDO = interp1(datafile(:,1),datafile(:,6),timepts(indexBEG:indexEN),'spline');
                     % Otherwise: the values at BEG and EN are placed at the
                     % extreme time points, and reinterpolation only takes
                     % place in-between.
@@ -254,8 +254,8 @@ for n = 1:length(nonzeros(data(1,1,:)))
                         % reinterpolation in-between, if there are more
                         % than two corresponding samples to be made
                         if indexEN - indexBEG > 1
-                            reOQ(2:(indexEN - indexBEG)) = interp1(datafile(:,1),datafile(:,OqCOindex),timepts((indexBEG+1):(indexEN-1)));
-                            reDO(2:(indexEN - indexBEG)) = interp1(datafile(:,1),datafile(:,6),timepts((indexBEG+1):(indexEN-1)));
+                            reOQ(2:(indexEN - indexBEG)) = interp1(datafile(:,1),datafile(:,OqCOindex),timepts((indexBEG+1):(indexEN-1)),'spline');
+                            reDO(2:(indexEN - indexBEG)) = interp1(datafile(:,1),datafile(:,6),timepts((indexBEG+1):(indexEN-1)),'spline');
                         end
                     end
                     % placing the results in corresponding portion of <samplenumber>-point
@@ -338,18 +338,18 @@ for n = 1:length(nonzeros(data(1,1,:)))
 
 
         %%%%%%%%%%%%  interpolation of f0 and DECPA values
-        % If there is a single data point in file (e.g. if
-        % this is a portion of signal with only two glottal cycles; this can
-        % happen in some cases where the signal is mostly devoiced but not
-        % entirely): technically, this value is assigned to the entire
-        % resampled curve, but the user is made specifically aware of
-        % this issue so a principled decision can be made, in view of the
-        % linguistic data at issue and implications that this has for the
-        % investigation. 
         if length(nonzeros(datafile(:,1))) > 1
-            resampledFo = interp1(datafile(:,1),datafile(:,3),timepts);
-            rD = interp1(datafile(:,1),datafile(:,4),timepts);
+            resampledFo = interp1(datafile(:,1),datafile(:,3),timepts,'spline');
+            rD = interp1(datafile(:,1),datafile(:,4),timepts,'spline');
         else
+			% If there is a single data point in file (e.g. if
+			% this is a portion of signal with only two glottal cycles; this can
+			% happen in some cases where the signal is mostly devoiced but not
+			% entirely): technically, this value is assigned to the entire
+			% resampled curve, but the user is made specifically aware of
+			% this issue so a principled decision can be made, in view of the
+			% linguistic data at issue and implications that this has for the
+			% investigation. 
             disp(['Only one single period within results file for item ',num2str(n),'.'])
             disp(['This value is assigned to all of the ',num2str(samplenumber),' time slots.'])
             pause
