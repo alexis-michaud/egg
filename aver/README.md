@@ -1,6 +1,10 @@
 aver: averaging over n tokens of a given tone
 =============
 
-This script produces average curves like in the figure below.
+In the study of linguistic tone, it is common practice to record several tokens of the same lexical tone. The **aver** script was written to allow phoneticians to visualize an *average* curve for these sets of tokens.
+
+The average curves are plotted against average duration, not over abstract steps (e.g. steps of 10% of total duration) which in effect normalize the duration. Thus, if several tone categories are plotted on the same figure, differences in duration can be visualized. 
+
+This Matlab script produces average curves like in the figure below.
 
 <img src="https://github.com/alexis-michaud/egg/blob/master/aver/ICPhS_M5_SemiTones.jpg" alt="Average curve of fundamental frequency for the High, Mid and Low tone of the Naxi language" width="420" height="312">
