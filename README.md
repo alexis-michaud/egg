@@ -3,7 +3,10 @@ EGG: tools for electroglottographic analysis
 
 This repository will be used in 2019 to host Matlab scripts for analysis of the electroglottographic signal. 
 
-## an improved version of the main analysis script, peakdet
+## a script for visualizing average curves for sets of tokens: *aver*
+See [this folder](https://github.com/alexis-michaud/egg/tree/master/aver). 
+
+## an improved version of the main analysis script: *peakdet*
 
 <img src="http://voiceresearch.free.fr/egg/images/peaks.png" alt="Average curve of fundamental frequency for the High, Mid and Low tone of the Naxi language">
 
