@@ -33,11 +33,19 @@ Analysis of the EGG signal with `peakdet` yields the results shown in the figure
 
 <img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Results of EGG analysis." height="288">
 
-Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f0 bring out slight irregularities (jitter) as f0 it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
+Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f<sub>0</sub> bring out slight irregularities (jitter) as f<sub>0</sub> it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
 
 Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Glottal constriction is strong: on the edge of a transition into _bona fide_ creak (phonation mechanism zero).
 
-### 1. Constricted creak
+### 2. Extremely low-frequency single-pulse creak
+
+
+## Summary in table form
+
+example | label | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> |
+--- | ----------- | ----------- | ----------- | ----------- |------- |
+1 | constricted creak | very low | almost quasi-periodic | very low | |
+2 | extremely low, single-pulse creak | bottom | aperiodic | bottom ||
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
