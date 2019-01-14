@@ -49,3 +49,4 @@ fo = results_matrix (:,3);
             xlabel('green: f_0; orange: O_q from local max; blue: O_q from barycentre.')
             ylabel('f_0 in Hz; O_q in %')
 print('-dpdf', 'C:\Dropbox\GitHub\egg\gallery\images\1.pdf')
+print('-dpng', 'C:\Dropbox\GitHub\egg\gallery\images\1.png')
