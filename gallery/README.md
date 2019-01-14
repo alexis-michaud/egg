@@ -1,4 +1,4 @@
-Gallery of electroglottographic signals
+Gallery of electroglottographic signals [work in progress]
 =============
 
 The diversity of electroglottographic signals is impressive. States of the glottis can change rapidly: signals for the same speaker are highly diverse. There is diversity across phonological categories, diversity among speaking styles, diversity along the lifespan, and of course there are differences across speakers. 
@@ -36,6 +36,8 @@ Analysis of the EGG signal with `peakdet` yields the results shown in the figure
 Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f0 bring out slight irregularities (jitter) as f0 it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
 
 Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Glottal constriction is strong: on the edge of a transition into _bona fide_ creak (phonation mechanism zero).
+
+### 1. Constricted creak
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
