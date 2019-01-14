@@ -65,8 +65,8 @@ Overall, example 2 can be described as more extreme than example 1: a clear laps
 
 example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> |
 ------- | ----------- | ----------- | ----------- | ----------- |------- |------- |
-1 | constricted creak | /paj⁴/, speaker M1 | very low | almost quasi-periodic | 1 | very low  |
-2 | extremely low, single-pulse creak | /paj⁴/, speaker M11 | bottom | aperiodic | 1 | bottom, and hard to measure from the EGG signal |
+1 | constricted creak | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  |
+2 | extremely low, single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom, and hard to measure from the EGG signal |
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
