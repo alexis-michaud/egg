@@ -31,8 +31,9 @@ Oqval = results_matrix (:,8);
 % Plot boxes for Oq values obtained from smoothed signal. Orange filled
 % boxes. (Tried light green for the filled boxes, but that colour did not stand out
 % clearly from the blue colour.)
+% Colour later changed to lighter orange/yellow, for better contrast with the red stars.
 OqS = results_matrix (:,7);
-            plot(OqS, 'LineStyle','--', 'Marker', 's','Color', [1 .5 .0], 'MarkerSize',9, 'MarkerFaceColor', [1 .5 .0])
+            plot(OqS, 'LineStyle','--', 'Marker', 's','Color', [1 .7961 .3765], 'MarkerSize',9, 'MarkerFaceColor', [1 .7961 .3765])
 
 % On top of this: plot the values from unsmoothed signal, as filled stars
 % (pentagram) without connecting lines. Colour: a reddish Coral colour, to
