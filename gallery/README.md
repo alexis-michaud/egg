@@ -25,27 +25,34 @@ The approach chosen here consists in testing to what extent phonetic subtypes ca
 
 The first example is _constricted creak_. The signals can be downloaded from the **gallery** folder: [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder.
 
-<img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Signals.">
+<img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/. Signals.">
 
 On the audio signal, there are hints of creak: longer pulses, of much smaller amplitude, in the second half as compared to the first.
 
 Analysis of the EGG signal with `peakdet` yields the results shown in the figure below. (The data can be loaded into Matlab from the `1.mat` file). The x axis represents _glottal cycles_, which constitute data points in the results file.
 
-<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Results of EGG analysis." height="288">
+<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f<sub>0</sub> bring out slight irregularities (jitter) as f<sub>0</sub> it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
 
-Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Glottal constriction is strong: on the edge of a transition into _bona fide_ creak (phonation mechanism zero).
+Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Phonation enters into phonation mechanism zero (_bona fide_ creak), compromising periodicity without losing it altogether.
 
 ### 2. Extremely low-frequency single-pulse creak
 
+<img src="images/2_sig.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Signals.">
+
+Example 2 (the same word as in example 1, by another speaker) is similar to example 1 in important respects: (i) cycles are long and consist of a single pulse (as opposed to the double-pulsed or multiple-pulsed patterns which will be described below); (ii) the auditory impression is one of constriction, rather than relaxed phonation; and (iii) cycle length increases again after reaching the lowest values (i.e. glottalization does not interrupt voicing). 
+
+But examples 1 and 2 differ in no less important respects, as brought out in the analysis results below. First, periodicity is lost. The inverse of cycle duration (still referred to as ' f<sub>0</sub>' for convenience) reaches rock-bottom values. 
+
+<img src="images/2.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 ## Summary in table form
 
-example | label | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> |
---- | ----------- | ----------- | ----------- | ----------- |------- |
-1 | constricted creak | very low | almost quasi-periodic | very low | |
-2 | extremely low, single-pulse creak | bottom | aperiodic | bottom ||
+example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> |
+------- | ----------- | ----------- | ----------- | ----------- |------- |------- |
+1 | constricted creak | /paj⁴/, speaker M1 | very low | almost quasi-periodic | 1 | very low  |
+2 | extremely low, single-pulse creak | /paj⁴/, speaker M11 | bottom | aperiodic | 1 | bottom, and hard to measure from the EGG signal |
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
