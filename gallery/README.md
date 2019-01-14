@@ -9,13 +9,21 @@ The work is now (2019) in its initial stage, with _glottalization_ as a first ar
 
 ## Types of glottalization: glottal constriction, creaky voice/vocal fry, irregular phonation...
 
+Glottalized signals are often pooled together into _one_ phonation type, variously referred to as 'creaky voice', 'vocal fry', or 'glottalized voicing'. Thus, in their typology of phonation mechanisms, Roubeau, Henrich & Castellengo (2009) acknowledge the diversity of the various modes of vibration associated with lowest fundamental frequency ("a periodic glottal cycle, with
+a very low frequency, or nonperiodic-impulsions, or multiple
+cycles (doubles and triples)", p. 431)
+but nonetheless group them under the same heading: "phonation mechanism zero" (M0), as distinguished from the two phonation mechanisms mostly used in operratic singing, M1 (corresponding roughly to "chest voice") and M2 ("head voice").
+
+The approach chosen here consists in testing to what extent phonetic subtypes can be reliably characterized, and distinguished on the basis of electroglottographic signals.
+
 > The term “creaky voice” (or “creak”, used here
 > interchangeably) refers to a number of different
 > kinds of voice production. (Keating et al. 2015)
 
+
 ### 1. Constricted creak
 
-The first example is _constricted creak_. You can download the signals from the **gallery** folder: [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder.
+The first example is _constricted creak_. The signals can be downloaded from the **gallery** folder: [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder.
 
 <img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Signals.">
 
@@ -25,8 +33,11 @@ Analysis of the EGG signal with `peakdet` yields the results shown in the figure
 
 <img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Results of EGG analysis." height="288">
 
-Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f0 bring out slight irregularities (jitter) as f0 it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the values in orange (calculated by simply detecting the local minimum in the EGG signal) and in blue (which take into account the shape of the signal, detecting multiple peaks and calculating their barycentre).
+Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f0 bring out slight irregularities (jitter) as f0 it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
+
+Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Glottal constriction is strong: on the edge of a transition into _bona fide_ creak (phonation mechanism zero).
 
 ## References
-Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. Proceedings of the 18th International Congress of Phonetic Sciences. Glasgow.
+- Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
+- Roubeau, Bernard, Nathalie Henrich & Michèle Castellengo. 2009. Laryngeal vibratory mechanisms: the notion of vocal register revisited. _Journal of Voice_ 23(4). 425–38.
 
