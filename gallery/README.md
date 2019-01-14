@@ -31,11 +31,19 @@ On the audio signal, there are hints of creak: longer pulses, of much smaller am
 
 Analysis of the EGG signal with `peakdet` yields the results shown in the figure below. (The data can be loaded into Matlab from the `1.mat` file). The x axis represents _glottal cycles_, which constitute data points in the results file.
 
-<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/. Results of EGG analysis." height="288">
+<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/ (meaning 'seven'). Results of EGG analysis." height="288">
 
 Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f<sub>0</sub> bring out slight irregularities (jitter) as f<sub>0</sub> it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
 
 Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Phonation enters into phonation mechanism zero (_bona fide_ creak), compromising periodicity without losing it altogether.
+
+A similar example from a female speaker (F13) is shown below. It is a token of the same word, /paj⁴/. 
+
+<img src="images/1_F13_sig.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Signals.">
+
+Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially continuous. The open quotient can be assessed with precision: it is extremely low (remembering that for female speakers, as a general rule O<sub>q</sub> is higher than for men). 
+
+<img src="images/1_F13_sig.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 ### 2. Extremely low-frequency single-pulse creak
 
