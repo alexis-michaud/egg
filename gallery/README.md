@@ -19,7 +19,9 @@ The first example is _constricted creak_. You can download the signals from the 
 
 <img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Signals.">
 
-Analysis of the signal with peakdet yields the following results (which you can load into Matlab from the 1.mat file). The x axis represents _glottal cycles_, which constitute data points in the results file.
+On the audio signal, there are hints of creak: longer pulses, of much smaller amplitude, in the second half as compared to the first.
+
+Analysis of the EGG signal with `peakdet` yields the results shown in the figure below. (The data can be loaded into Matlab from the `1.mat` file). The x axis represents _glottal cycles_, which constitute data points in the results file.
 
 <img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4. Results of EGG analysis." height="288">
 
