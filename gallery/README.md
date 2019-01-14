@@ -43,9 +43,15 @@ Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Phonati
 
 Example 2 (the same word as in example 1, by another speaker) is similar to example 1 in important respects: (i) cycles are long and consist of a single pulse (as opposed to the double-pulsed or multiple-pulsed patterns which will be described below); (ii) the auditory impression is one of constriction, rather than relaxed phonation; and (iii) cycle length increases again after reaching the lowest values (i.e. glottalization does not interrupt voicing). 
 
-But examples 1 and 2 differ in no less important respects, as brought out in the analysis results below. First, periodicity is lost. The inverse of cycle duration (still referred to as ' f<sub>0</sub>' for convenience) reaches rock-bottom values. 
+But examples 1 and 2 differ in no less important respects, as brought out in the analysis results below. 
 
 <img src="images/2.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Results of EGG analysis." height="288">
+
+First, periodicity is lost. (The inverse of cycle duration is nonetheless still referred to as ' f<sub>0</sub>' for convenience.) Five or six cycles of 'jittery' f<sub>0</sub> are followed by rock-bottom values (below 40 Hz). 
+
+Moreover, the opening peaks on the dEGG signal, which were still (just barely) clear enough in example 1 to allow for confident evaluation of the glottal open quotient, are so inconspicuous in example 2 that they tend to become indetectable, hence the disagreement between the values shown in blue and orange. It is not unreasonable, in view of the shape of the EGG signal, to consider that these cycles have an extremely short open phase, and the lowest O<sub>q</sub> values (those in orange, correcting for two outliers at the 9th and 15th cycles) provide good estimates: O<sub>q</sub> is on the order of just 20% (i.e. **rock-bottom values**, like for f<sub>0</sub>) for the longest cycles.
+
+Overall, example 2 can be described as more extreme than example 1: a clear lapse into creaky voice, with the lowest possible f<sub>0</sub> and O<sub>q</sub>, but still with a single pulse per cycle. Phonation is almost arrested by the strong constriction, and only continues 'pulse by pulse' as puffs of air find their way through the closed sphincter. 
 
 ## Summary in table form
 
