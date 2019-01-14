@@ -1,7 +1,7 @@
 % Figure for example 1 in the EGG gallery developed at https://github.com/alexis-michaud/egg
 
 % Loading results file
-load('C:\Dropbox\GitHub\egg\gallery\1.mat')
+load('C:\Dropbox\GitHub\egg\gallery\2.mat')
 
 figure(1)
 % clearing figure
@@ -49,8 +49,13 @@ Oq = results_matrix (:,5);
 % For instance: one colour for the range below 30 Hz, another for the range from 30 to 60, another for 60 to 90, then another for above 90.
 fo = results_matrix (:,3);
   %          plot(fo,'LineStyle','--','Marker', 'd','Color',[0.9373    0.6078    0.0588])
-            plot(fo, 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+            plot(fo, 'LineStyle','-',  'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+
+
+% Axis for best legibility: up to 160 Hz, like Figure 1.
+axis([1 length(fo) 0 160])
+
             xlabel('green: f_0; orange: O_q from local max; blue: O_q from barycentre.')
             ylabel('f_0 in Hz; O_q in %')
-print('-dpdf', 'C:\Dropbox\GitHub\egg\gallery\images\1.pdf')
-print('-dpng', 'C:\Dropbox\GitHub\egg\gallery\images\1.png')
+print('-dpdf', 'C:\Dropbox\GitHub\egg\gallery\images\2.pdf')
+print('-dpng', 'C:\Dropbox\GitHub\egg\gallery\images\2.png')
