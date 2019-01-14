@@ -43,7 +43,7 @@ A similar example from a female speaker (F13) is shown below. It is a token of t
 
 Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially continuous. The open quotient can be assessed with precision: it is extremely low (remembering that for female speakers, as a general rule O<sub>q</sub> is higher than for men). 
 
-<img src="images/1_F13_sig.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
+<img src="images/1_F13.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 ### 2. Extremely low-frequency single-pulse creak
 
