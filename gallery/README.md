@@ -16,7 +16,7 @@ The work is now (2019) in its initial stage, with _glottalization_ as a first ar
 ### 1. Constricted creak
 
 The first example is _constricted creak_.
-<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4." width="450">
+<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj/, Tone 4." height="288">
 
 Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f0 bring out slight irregularities (jitter) as f0 it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the values in orange (calculated by simply detecting the local minimum in the EGG signal) and in blue (which take into account the shape of the signal, detecting multiple peaks and calculating their barycentre).
 
