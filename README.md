@@ -1,15 +1,15 @@
 EGG: tools for electroglottographic analysis
 =============
 
-This repository hosts Matlab scripts for analysis of the electroglottographic signal, and data samples.  
+This repository hosts Matlab scripts for analysis of the electroglottographic signal, and data samples. 
 
-## a script for visualizing average curves for sets of tokens: *aver*
+## 1) a script for visualizing average curves for sets of tokens: *aver*
 See [this folder](https://github.com/alexis-michaud/egg/tree/master/aver). 
 
-## a gallery of signals exemplifying different types of glottalization (work in progress)
+## 2) a gallery of signals exemplifying different types of glottalization (work in progress)
 See [this folder](gallery). This strand of work is linked to the project of devising new scripts for the detection and characterization of various phonetic subtypes of glottalization.
 
-## `peakdet_inter`: a version of `peakdet` with interface for user verification
+## 3) `peakdet_inter`: a version of `peakdet` with interface for user verification
 
 `peakdet` is the script for analyzing electroglottographic signals. 
 
