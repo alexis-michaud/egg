@@ -64,7 +64,7 @@
 % user, and peaks that are so close that the corresponding f0 is above this
 % threshold are considered as belonging in the same "peak cluster". This
 % value is set at 500 to start with. 
-% In light of the great differences in F0 range across speakers and across the
+% In light of the great differences in f0 range across speakers and across the
 % experimental tasks that they perform, it is not adequate to leave this
 % unchanged for all speakers: the user should consider modifying the threshold.
 % It was not found useful to set a lower threshold parallel to this upper
@@ -177,9 +177,9 @@ smoothingstep = 3;
 % 
 % % choosing maximum possible f0
 % disp(' ')
-% disp('The detection of double peaks requires an F0 ceiling.')
+% disp('The detection of double peaks requires an f0 ceiling.')
 % disp('Which value do you propose for this ceiling?')
-% disp('(i.e. a value slightly above the maximum plausible F0 that could be produced by the speaker)')
+% disp('(i.e. a value slightly above the maximum plausible f0 that could be produced by the speaker)')
 % disp('Recommended value: 500 Hz.')
 % maxF = input('Your choice (in Hz): > ');
 % 
@@ -404,7 +404,7 @@ for i = 1:maxnb
                 disp('If some of the periods went undetected, or extra periods were erroneously detected, enter 1 (one).')
                 disp('You will then be asked to change the values of some of the settings.')
                 disp(' ')
-                disp('If you wish to correct some of the F0 values, enter 2.')
+                disp('If you wish to correct some of the f0 values, enter 2.')
                 % It may happen that the portion of the EGG signal that was selected
                 % when placing the time boundaries includes a preceding glottal closure
                 % that should not in fact count as part of the voiced portion under
@@ -428,7 +428,7 @@ for i = 1:maxnb
                 while coefloop == 0
                     disp(' ')
                     disp(' ')
-                    disp('If too many periods were detected, you may change the threshold for maximum F0.')
+                    disp('If too many periods were detected, you may change the threshold for maximum f0.')
                     disp(['The present threshold is: ',num2str(maxF)]) 
                     maxF = input('New value for the threshold (in Hz): > ');
                     coefloop = 1;
@@ -584,7 +584,7 @@ for i = 1:maxnb
                     datafile(cornb,3) = newvalue;
                     figure(4)
                     clf
-                    plot(nonzeros(datafile(:,1)),nonzeros(datafile(:,3)),'pb')
+                    plot(nonzeros(datafile(:,1)),nonzeros(datafile(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
                     if ~isempty(numb)
                         disp(['Item that carries label ' num2str(numb(i)) '.'])
                     else
@@ -606,10 +606,11 @@ for i = 1:maxnb
                 choiceOq = 10;
                 while ~ismember(choiceOq,[0:4])
                     disp(['Item : ',num2str(i)])
-                    disp('To choose Oq values calculated by maxima on unsmoothed signal (in green), enter 0.')
-                    disp('To choose Oq values calculated by maxima on smoothed signal (in blue), enter 1.')
-                    disp('To choose Oq values calculated by peak detection (in red), enter 2.')
-                    disp('To choose Oq values calculated by peak detection on smoothed signal (in black), enter 3.')
+                    disp('Please select Oq results among the four sets obtained by different methods:')
+                    disp('- by maxima on unsmoothed signal (shown as red stars): enter 0.')
+                    disp('- by maxima on smoothed signal (shown as orange squares): enter 1.')
+                    disp('- as a barycentre of peaks on unsmoothed signal (shown as blue stars): enter 2.')
+                    disp('- as a barycentre of peaks on smoothed signal (shown as blue squares): enter 3.')
                     disp('To exclude all Oq values for this item, enter 4.')
                     choiceOq = input('Your choice : ');
                 end
@@ -673,7 +674,7 @@ for i = 1:maxnb
                             datafile(cornb,10) = 0;
                             figure(1)
                             clf
-                            plot(datafile(:,1),datafile(:,10),'pb')
+                            plot(datafile(:,1),datafile(:,10), 'LineStyle','--', 'Marker', 's','Color', [0.1490 0.7686 0.9255], 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
                         end
                     end
                 end
