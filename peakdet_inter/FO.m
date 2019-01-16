@@ -83,11 +83,8 @@ for w = 1:length(simppeak(:,1)) - 1
     f0(w) = 1 / (simppeak(w + 1,1) - simppeak(w,1));
 end
 
-disp('I got to calculating f0.')
 % Retrieving opening peaks where possible on unsmoothed signal
 [Oq,Oqval,DEOPA,goodperiods] = OP(simppeak,SIG,dSIG,valid,doublepeaks,COEF,resampC,Ts,method);
-
-disp('I got to finding opening peaks.')
 
 %%% Second call to the function OP, with smoothed signal
 [OqS,OqvalS,DEOPAS,goodperiodsS] = OP(simppeak,SIG,SdSIG,valid,doublepeaks,COEF,resampC,Ts,method);

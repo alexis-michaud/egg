@@ -12,7 +12,9 @@ function [LENG,numb] = beginend(filename)
 % formats.)
 % In the output matrix, times are converted into milliseconds.  
 
-% finding out whether there are any nonnumeric characters in the file
+% finding out whether the file begins by the string 'Regions List': a
+% telltale indication that it is a list of regions exported in the format
+% of the Sound Forge software.
 
 % % Previous version: looking for any nonnumeric character; but in fact
 % % individual nonnumeric characters do not prevent the correct loading of a
@@ -22,7 +24,7 @@ function [LENG,numb] = beginend(filename)
 % % load properly. Test to find out whether the input file is a SoundForge
 % % Regions List file or a matrix: if there is more than one nonnumeric
 % % character in the first line: treat as SoundForge Regions List.
-numer = 0;
+%
 	% fid = fopen(filename, 'rt');
 	% while and ( feof(fid) == 0, numer == 0)
 	%    tline = '';
@@ -52,16 +54,31 @@ fid = fopen(filename, 'rt');
 tline = ''; numline = '';
 tline = fgetl(fid);
 fclose(fid);
-nbletters = length(nonzeros(isletter(tline)));
-if nbletters > 1
-   % in case there is more than one nonnumeric character in the first line:
-   % set numer at 1; the file will be handled as Regions List.
-   % The file cannot be loaded as a matrix.
-   % Note: the END OF LINE character is not transformed into a numerical
-   % character; the length of numline will therefore be less than that of
-   % tline by one character even when there are no letters in the line
-   numer = 1;
+
+if length(tline) > 11
+    % If the first 12 characters of <tline> are 'Regions List': this is
+    % considered as a Regions List, and processed as such.
+    if sum(tline(1:12) == 'Regions List') == 12
+        numer = 1;
+    else
+        numer = 0;
+    end
 end
+        
+%% Older code: 
+% nbletters = length(nonzeros(isletter(tline)));
+% 
+% if nbletters > 1
+%    % in case there is more than one nonnumeric character in the first line:
+%    % this is likely to be a Regions list. Check whether these characters
+%    % are 'Regions List: ...'
+%    % set numer at 1; the file will be handled as Regions List.
+%    % The file cannot be loaded as a matrix.
+%    % Note: the END OF LINE character is not transformed into a numerical
+%    % character; the length of numline will therefore be less than that of
+%    % tline by one character even when there are no letters in the line
+%    numer = 1;
+% end
     
 	% for n = 1:length(tline)
 	%    % removing nonnumeric characters from the line, retaining spaces
@@ -77,8 +94,8 @@ end
 	% end
 
   
-% in case it has been detected that the file is basically made up of figures: 
-% it can be loaded as a matrix:
+% in case the file is not a list of regions in Sound Forge format: 
+% it is loaded as a matrix:
 if numer == 0
     numb = [];
     LENG = load(filename);
@@ -96,9 +113,10 @@ if numer == 0
     elseif n < 2
         error('Input text file must contain two values for each item: beginning and end.')
     end
-    
-% if nonnumeric characters were found: attempt at reading the file as SoundForge
-% Regions list.
+    % It is assumed that the input values are in seconds. This is converted
+    % to milliseconds.
+    LENG = LENG * 1000;
+% Otherwise: read as SoundForge regions list   
 elseif numer == 1
     fid = fopen(filename, 'rt');
     linecount = 0;
