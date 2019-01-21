@@ -28,8 +28,6 @@ Methods for the detection of opening peaks implemented in version 1 of `peakdet`
 
 <img src="HOWTO/images/M11_disyll_results.png" alt="Results of analysis by version 1 of peakdet." height="350">
 
-
-
 In order to detect the opening peak, the difference in shape between the 'hill' and the 'needle' needs to be taken into account. This is not just an issue of dealing with high-frequency noise (small dents in the signal), but of excluding the 'hill' altogether. 
 
 The method chosen consists in computing the second derivative of the EGG signal. This derivative brings out changes in the dEGG signal's slope: since the 'needle' has a steeper slope than the 'hill', the derivative of the dEGG signal (hereafter ddEGG) is likely to have a noticeable 'pulse' corresponding to the needle-shaped dEGG signal. 
@@ -38,4 +36,21 @@ Since the second derivative is even noisier than the first, smoothing needs to b
 
 <img src="HOWTO/images/ddEGGmethod.png" alt="First and second derivative of the EGG signal. Glottalized cycles.">
 
-Comparing dEGG and ddEGG, it looks as if there were no gain in terms of salience of the opening peak: opening peaks even seem harder to make out on the ddEGG signal (even after smoothing) than on the dEGG signal. The first six opening peaks are perfectly clear from the dEGG signal, whereas only the first four are really salient from the ddEGG signal before smoothing. Later peaks are even harder to guess. But looking at the second derivative more closely, there is nonetheless some promise in this method, because it achieves the goal of smoothing out the 'hills' in the dEGG signal.
+Comparing dEGG and ddEGG, it looks as if there were no gain in terms of salience of the opening peak: opening peaks even seem harder to make out on the ddEGG signal (even after smoothing) than on the dEGG signal. The first six opening peaks are perfectly clear from the dEGG signal, whereas only the first four are really salient from the ddEGG signal before smoothing. Later peaks are even harder to guess. But looking at the second derivative more closely, there is nonetheless some promise in this method, because it achieves the goal of smoothing out the 'hills' in the dEGG signal. The image below shows the same cycle as above (left), now with the smoothed ddEGG signal (right), where a pulse is visible at a location corresponding to the opening peak that is indicative of the glottis-opening instant. 
+
+<img src="HOWTO/images/HillAndPeak_CloseUp.png" alt="First and second derivative of the EGG signal. One glottalized cycle." height="400">
+
+To detect this pulse, which consists of a downward movement followed by an upward movement, the script `dd_detect.m` examines all sign changes (crossings of zero) in the ddEGG signal within a glottal cycle (i.e. in-between two glottal closings). It groups a negative portion with a following positive portion, and looks at three parameters: 
+- _total amplitude_: the sum (in absolute values) of the successive negative and positive peaks within the 'pulse'
+- _total intensity_: the total intensity of the 'pulse' is computed by summing (in absolute values) all the samples inside the 'pulse'
+- and _duration_ of the 'pulse', from a crossing from a positive value to a negative value, to the next crossing to a positive value. 
+
+<img src="HOWTO/images/ddEGG_PulseIntegration.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Integrating the ddEGG signal during 'pulses' inside one glottalized cycle.">
+<img src="HOWTO/images/ddEGG_PulseMaxima.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Examining maximum values in the ddEGG signal during 'pulses' inside one glottalized cycle.">
+<img src="HOWTO/images/ddEGG_PulseDuration.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Examining duration of 'pulses' inside one glottalized cycle.">
+
+The seventy-seventh 'pulse', which corresponds to the glottis-opening instant as detected by visual examination of the dEGG signal, stands out in terms of the three variables examined (max amplitude. It is most distinct from the others in terms of its *integrated intensity*, which is 6.6 times greater than the average of the other 'pulses'. Its amplitude is also fairly salient: it is 3.2 times greater than the average of the other 'pulses'. Duration (as calculated here) is least distinctive, but it is still 2.6 times higher than the average of the other 'pulses'.
+
+Seen in this light, the second derivative of the EGG signal has potential for allowing reliable identification of glottis-opening instants in glottalized voicing. The way forward appears to be in the sensitive application of a combination of algorithms, guided by an evaluation of the characteristics of the EGG and audio signals. 
+
+_(Work in progress as of Jan. 22nd, 2019)_
