@@ -1,5 +1,12 @@
 load('C:\Dropbox\GitHub\egg\peakdet_inter\HOWTO\M11_disyll_syll1.mat')
 
+%%% Selecting the portion to be treated: just 1 cycle, for purposes of
+%%% demonstration.
+dSIG = dSIG (4810:5590);
+
+%%% initializing variables
+ddSIG = [];
+SddSIG = [];
 %%% calculating the second derivative
 
 % Smoothing: 2 points for dEGG, 3 points for ddEGG.
@@ -23,6 +30,15 @@ rims = rim (-ddSIG, 0);
 %%% Loop for peaks:
 % Initializing a counter
 nbpeaks = 0;
+begimpulse = [];
+endimpulse = [];
+indexpeak = [];
+durationofpeak = []; 
+negpeak = []; 
+pospeak = [];
+totpeak = [];
+peakrims = [];
+intensityofimpulse = [];
 
 for i = 1:length(rims) - 1
     % From first to last negative peak.
@@ -52,16 +68,13 @@ for i = 1:length(rims) - 1
         % Cumulated amplitude of peak: maximum plus minimum peak
         negpeak(nbpeaks) = min(ddSIG(rims(i, 1):rims(i, 2)));
         pospeak(nbpeaks) = max(ddSIG(rims(i, 2):rims(i+1, 1)));
-        totpeak(nbpeaks) = abs( negpeak(i) ) + pospeak(i); 
+        totpeak(nbpeaks) = abs( negpeak(nbpeaks) ) + pospeak(nbpeaks); 
         peakrims(nbpeaks,1) = rims(i,1);
         peakrims(nbpeaks,2) = rims(i+1,1);
     end
 end
 
 %%% Finding the highest peaks. 
-% If there is a match between the peak with greatest amplitude and
-% intensity:
-
 figure(1)
 clf
 bar(intensityofimpulse)
@@ -102,3 +115,8 @@ maxtotpeak / meanexceptmax
 
 disp('Position: peak number')
 maxTindex
+
+% If there is a match between the peak with greatest amplitude and
+% intensity:
+
+
