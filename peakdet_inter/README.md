@@ -24,4 +24,12 @@ This is clearly an instance of glottalized voicing: the amplitude of the audio a
 
 <img src="HOWTO/images/HillAndPeak_annot.png" alt="Zooming in on a cycle where the opening peak stand out less than an inverted 'hill' (bump) at beginning of period. Muong speaker M11. Disyllable /la⁴ tɔŋ²/. Signals." height="400">
 
- pressed voice (constricted creak/ creaky voice) 
+Methods for the detection of opening peaks implemented in version 1 of `peakdet` cannot handle such cases properly, because they use the local minimum in the dEGG signal as a landmark. Starting from the 8th cycle (when glottalization becomes strong), O_q values do not make sense: the values computed from the local minimum (in orange) are high, misleadingly estimating that the 'hill' at beginning of cycle reflects glottis opening; values based on a barycentre constitute a no less misleading average across peaks which, from a physiological point of view, are incompatible.
+
+<img src="HOWTO/images/M11_disyll_results.png" alt="Results of analysis by version 1 of peakdet." height="350">
+
+
+
+In order to detect the opening peak, the difference in shape between the 'hill' and the 'needle' needs to be taken into account. This is not just an issue of dealing with high-frequency noise (small dents in the signal), but of excluding the 'hill' altogether. 
+
+The method chosen consists in computing the second derivative of the EGG signal. This derivative brings out changes in the dEGG signal's slope: since the 'needle' has a steeper slope than the 'hill', the derivative of the dEGG signal (hereafter ddEGG) is likely to have a noticeable 'pulse' corresponding to the needle-shaped dEGG signal. 
