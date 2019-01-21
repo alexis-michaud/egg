@@ -116,6 +116,17 @@ maxtotpeak / meanexceptmax
 disp('Position: peak number')
 maxTindex
 
+% By duration:
+[maxDpeak, maxDindex] = max(durationofpeak);
+disp('Duration of impulse that has greatest duration: ')
+maxDpeak
+disp('Duration relative to the mean of the other peaks: r times higher than average: r =')
+% Average, excepting the target value:
+totalexceptmax = sum(durationofpeak) - maxDpeak;
+meanexceptmax = totalexceptmax / (nbpeaks - 1);
+maxDpeak / meanexceptmax
+
+
 % If there is a match between the peak with greatest amplitude and
 % intensity:
 
