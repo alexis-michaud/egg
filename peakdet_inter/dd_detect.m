@@ -1,6 +1,19 @@
+load('C:\Dropbox\GitHub\egg\peakdet_inter\HOWTO\M11_disyll_syll1.mat')
+
+%%% calculating the second derivative
+
+% Smoothing: 2 points for dEGG, 3 points for ddEGG.
+SdSIG = smoo(dSIG,2);
+
+% deviating
+for w = 1 : length(SdSIG) - 1
+    ddSIG (w) = SdSIG (w + 1) - SdSIG (w);
+end
+
+% smoothing ddEGG
+SddSIG = smoo(ddSIG,3);
+
 % Detecting negative peaks in ddEGG, and integrating them
-
-
 
 rims = rim (-ddSIG, 0);
 % Threshold set at zero: to get all peaks, however small, and complete
@@ -23,7 +36,8 @@ for i = 1:length(rims) - 1
     % (0.02 centiseconds, 0.0002 seconds) of the end boundary of the interval,
     % and those peaks that are within 0.3 ms of the beginning of the interval.
     % At a sampling rate of 44,100 Hz, this amounts to excluding 9 samples at
-    % the end and 13 samples at the beginning.
+    % the end and 13 samples at the beginning. (These values are set as a
+    % rule of thumb and probably need to be adjusted.)
     % If the peak is too close to boundary, the peak is excluded through
     % the following condition.
     if not (or ( ((length(ddSIG) - endimpulse (i)) < 10), (begimpulse(i) < 13) ))
