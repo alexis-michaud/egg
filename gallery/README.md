@@ -21,9 +21,9 @@ The approach chosen here consists in testing to what extent phonetic subtypes ca
 > kinds of voice production. (Keating et al. 2015)
 
 
-### 1. Constricted creak
+### 1. Pressed voice / constricted creak
 
-The first example is _constricted creak_. The signals can be downloaded from the **gallery** folder: [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder.
+The first example is a token of strongly pressed voice, which can be called _constricted creak_ if one uses the term 'creak' broadly. The signals can be downloaded from the **gallery** folder: [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder.
 
 <img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/. Signals.">
 
