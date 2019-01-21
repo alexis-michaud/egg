@@ -1,4 +1,3 @@
-function SMOO_dSIG = smoo(dSIG,C_SMOO)
 % Smoothing a digitalized signal.
 %
 % This is the second version of this function (2.0), written in 2019.
@@ -17,6 +16,7 @@ function SMOO_dSIG = smoo(dSIG,C_SMOO)
 %
 % Version 2 follows the example of <praatdet> (at https://github.com/kirbyj/praatdet#smoothing): it uses a linearly weighted symmetric moving average. A quick tutorial on this topic is available here:
 %https://fr.mathworks.com/videos/using-convolution-to-smooth-data-with-a-moving-average-in-matlab-97193.html
+function SMOO_dSIG = smoo(dSIG,C_SMOO)
 
 % Creating the mask
 for i = 1:(C_SMOO + 1)

@@ -17,7 +17,8 @@ function [TGEI,valid,validtime,numberofpeaks] = AMPOS(SIG,rims,resampC,Ts,method
 % in the calculations.
 %
 %%%%%%%%% Output of AMPOS:
-% <TGEI>: 3-column matrix containing: index, amplitude, and time (in ms) of
+% <TGEI>: times of Glottal-Event Instants: 
+% 3-column matrix containing: index, amplitude, and time (in ms) of
 % detected closings, following the method specified by the user for the
 % approximation of Fo: in case of double peaks, the user specified (in <method>)
 % selection of the first peak or of the highest peak, etc. It is not called TGCI
