@@ -16,7 +16,7 @@ The back-end is also being improved, in order to handle better the great diversi
 ## 1. Peaks vs. hills: detecting opening peaks inside glottalized pulses
 The first challenge tackled in the current (2019) development consists in detecting an opening peak that does not constitute a local minimum in the derivative of the EGG signal (dEGG). 
 
-This is especially common inside glottalized pulses, characterized by extremely low f_0. Consider the example below (EGG file: `M11_disyll_EGG.wav`; audio file: `M11_disyll_AUD.wav`). 
+This is especially common inside glottalized pulses, characterized by extremely low f_0. Consider the example below (EGG file: `M11_disyll_EGG.wav`; audio file: `M11_disyll_AUD.wav`). (To take a closer look at one of the figures, you may (i) click on it to see it in full size as a .png (raster) file or (ii) refer to the .pdf (vector) file. To take a look at the data, you can get the `Matlab` code used to produce the figure: look out for the `.m` files starting in `fig...`.)
 
 <img src="HOWTO/images/M11_disyll.png" alt="Glottalization, where opening peaks stand out less than an inverted 'hill' (bump) at beginning of period. Muong speaker M11. Disyllable /la⁴ tɔŋ²/. Signals.">
 
@@ -44,6 +44,8 @@ To detect this pulse, which consists of a downward movement followed by an upwar
 - _total amplitude_: the sum (in absolute values) of the successive negative and positive peaks within the 'pulse'
 - _total intensity_: the total intensity of the 'pulse' is computed by summing (in absolute values) all the samples inside the 'pulse'
 - and _duration_ of the 'pulse', from a crossing from a positive value to a negative value, to the next crossing to a positive value. 
+
+(The absolute values in the y scale in the first two bar plots are not significant by themselves, only as a means to compare the candidate 'pulses' among one another.)
 
 <img src="HOWTO/images/ddEGG_PulseIntegration.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Integrating the ddEGG signal during 'pulses' inside one glottalized cycle.">
 <img src="HOWTO/images/ddEGG_PulseMaxima.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Examining maximum values in the ddEGG signal during 'pulses' inside one glottalized cycle.">
