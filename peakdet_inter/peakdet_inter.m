@@ -246,7 +246,7 @@ for i = 1:maxnb
         time = [LENG(i,1)/1000 LENG(i,2)/1000];
         
         % clearing previous results
-        clear datafile
+        clear datasheet
         
         % In case a number had been given to the item in the text file: displaying it 
         if ~isempty(numb)
@@ -290,22 +290,22 @@ for i = 1:maxnb
         % - Oq determined from maximum after smoothing : 7th column
         % - Oq determined from peak detection : 8th and 9th colums without smoothing
         % and with smoothing, respectively.
-        datafile = [];
+        datasheet = [];
         if isempty(f0)
             disp('No single f0 value calculated for this item. Press any key to continue.')
             pause
             SATI = 1;
         else
             for k = 1:length(f0)
-                datafile(k,1) = simppeak(k,1);
-                datafile(k,2) = simppeak(k + 1,1);
-                datafile(k,3) = f0(k);
-                datafile(k,4) = simppeak(k,2);
-                datafile(k,5) = Oq(k);
-                datafile(k,6) = DEOPAS(k);
-                datafile(k,7) = OqS(k);
-                datafile(k,8) = Oqval(k);
-                datafile(k,9) = OqvalS(k);
+                datasheet(k,1) = simppeak(k,1);
+                datasheet(k,2) = simppeak(k + 1,1);
+                datasheet(k,3) = f0(k);
+                datasheet(k,4) = simppeak(k,2);
+                datasheet(k,5) = Oq(k);
+                datasheet(k,6) = DEOPAS(k);
+                datasheet(k,7) = OqS(k);
+                datasheet(k,8) = Oqval(k);
+                datasheet(k,9) = OqvalS(k);
             end
 
             %%%%%%%%%%%%%%%%%%%%%%% visual check of results, and manual corrections
@@ -389,8 +389,8 @@ for i = 1:maxnb
             hold on
             xlabel('Electroglottographic signal. Red bars: first and last detected closures.')
             % showing where the first and last closures have been detected
-            firstclo = datafile(1,1) * FS;
-            lastclo = datafile(length(nonzeros(datafile(:,2))),2) * FS;
+            firstclo = datasheet(1,1) * FS;
+            lastclo = datasheet(length(nonzeros(datasheet(:,2))),2) * FS;
             plot([firstclo firstclo],[-0.3 0.3],'-r')
             plot([lastclo lastclo],[-0.3 0.3],'-r')
             
@@ -409,7 +409,7 @@ for i = 1:maxnb
             while ~ismember(cornb,[0 1 2 3])
                 % manual correction of f0
                 disp('Fundamental frequency values (inverse of cycle durations): ')
-                disp(rot90(datafile(:,3)))
+                disp(rot90(datasheet(:,3)))
                 disp('If all the f0 values are correct, type 0 (zero).')
                 disp(' ')
                 disp('The red lines on figures 2 and 3 indicate the first and last detected periods.')
@@ -484,7 +484,7 @@ for i = 1:maxnb
                         COEF(3) = 0;
 
                         % clearing previous results
-                        clear datafile
+                        clear datasheet
 
                         %%%%%%%%%%%%%% running main analysis programme again
                         [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,dSIG,SdSIG] = ...
@@ -493,20 +493,20 @@ for i = 1:maxnb
 % previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)      
 
                         % setting a counter for number of periods placed in results
-                        % matrix <datafile>
+                        % matrix <datasheet>
                         chosen = 0;
                         for ii = 1:length(f0)
                             if simppeak(ii,1) < bound/FS
                                 chosen = chosen + 1;
-                                datafile(chosen,1) = simppeak(ii,1);
-                                datafile(chosen,2) = simppeak(ii + 1,1);
-                                datafile(chosen,3) = f0(ii);
-                                datafile(chosen,4) = simppeak(ii,2);
-                                datafile(chosen,5) = Oq(ii);
-                                datafile(chosen,6) = DEOPAS(ii);
-                                datafile(chosen,7) = OqS(ii);
-                                datafile(chosen,8) = Oqval(ii);
-                                datafile(chosen,9) = OqvalS(ii);
+                                datasheet(chosen,1) = simppeak(ii,1);
+                                datasheet(chosen,2) = simppeak(ii + 1,1);
+                                datasheet(chosen,3) = f0(ii);
+                                datasheet(chosen,4) = simppeak(ii,2);
+                                datasheet(chosen,5) = Oq(ii);
+                                datasheet(chosen,6) = DEOPAS(ii);
+                                datasheet(chosen,7) = OqS(ii);
+                                datasheet(chosen,8) = Oqval(ii);
+                                datasheet(chosen,9) = OqvalS(ii);
                             end
                         end
                         % changing threshold
@@ -522,27 +522,27 @@ for i = 1:maxnb
                         for ii = 1:length(f0)
                             if simppeak(ii,1) > (bound/FS)
                                 chosen = chosen + 1;
-                                datafile(chosen,1) = simppeak(ii,1);
-                                datafile(chosen,2) = simppeak(ii + 1,1);
-                                datafile(chosen,3) = f0(ii);
-                                datafile(chosen,4) = simppeak(ii,2);
-                                datafile(chosen,5) = Oq(ii);
-                                datafile(chosen,6) = DEOPAS(ii);
-                                datafile(chosen,7) = OqS(ii);
-                                datafile(chosen,8) = Oqval(ii);
-                                datafile(chosen,9) = OqvalS(ii);
+                                datasheet(chosen,1) = simppeak(ii,1);
+                                datasheet(chosen,2) = simppeak(ii + 1,1);
+                                datasheet(chosen,3) = f0(ii);
+                                datasheet(chosen,4) = simppeak(ii,2);
+                                datasheet(chosen,5) = Oq(ii);
+                                datasheet(chosen,6) = DEOPAS(ii);
+                                datasheet(chosen,7) = OqS(ii);
+                                datasheet(chosen,8) = Oqval(ii);
+                                datasheet(chosen,9) = OqvalS(ii);
                             end
                         end
                         % plotting the results
                         figure(1)
                         clf
-%                         plot(datafile(:,7),'-pb')
+%                         plot(datasheet(:,7),'-pb')
 %                         hold on
-%                         plot(datafile(:,5),'*g')
-%                         plot(datafile(:,8),'or')
-%                         plot(datafile(:,9),'sk')
+%                         plot(datasheet(:,5),'*g')
+%                         plot(datasheet(:,8),'or')
+%                         plot(datasheet(:,9),'sk')
 %                         % plotting f0
-%                         plot(datafile(:,3),'-pb')
+%                         plot(datasheet(:,3),'-pb')
                         h = axes;
                         set(h,'Fontsize',12)
 
@@ -604,28 +604,28 @@ for i = 1:maxnb
                     % if the first line must be suppressed:
                     if PERN == 1
                         TRANS = [];
-                        TRANS = datafile(2:length(datafile(:,1)),:);
-                        datafile = [];
-                        datafile = TRANS;
+                        TRANS = datasheet(2:length(datasheet(:,1)),:);
+                        datasheet = [];
+                        datasheet = TRANS;
                     elseif PERN == 9
                     % if the last line must be suppressed:
                         TRANS = [];
-                        TRANS = datafile(1:length(datafile(:,1)) - 1,:);
-                        datafile = [];
-                        datafile = TRANS;
+                        TRANS = datasheet(1:length(datasheet(:,1)) - 1,:);
+                        datasheet = [];
+                        datasheet = TRANS;
                     else
                         lopoff = 1;
                     end
                     % plotting the results
                     figure(1)
                     clf
-%                     plot(datafile(:,7),'-pb')
+%                     plot(datasheet(:,7),'-pb')
 %                     hold on
-%                     plot(datafile(:,5),'*g')
-%                     plot(datafile(:,8),'or')
-%                     plot(datafile(:,9),'sk')
+%                     plot(datasheet(:,5),'*g')
+%                     plot(datasheet(:,8),'or')
+%                     plot(datasheet(:,9),'sk')
 %                     % plotting f0
-%                     plot(datafile(:,3),'-pb')
+%                     plot(datasheet(:,3),'-pb')
                     
                     h = axes;
                     set(h,'Fontsize',12)
@@ -685,15 +685,15 @@ for i = 1:maxnb
                     disp(['Item on line ' num2str(i) ' of input text file.'])
                 end
                 disp('Fundamental frequency values: ')
-                disp(rot90(datafile(:,3)))
+                disp(rot90(datasheet(:,3)))
                 cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
                 if cornb > 0
-                    disp(['The f0 value was ',num2str(datafile(cornb,3)),'.'])
+                    disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
                     newvalue = input('Set new f0 value : ');
-                    datafile(cornb,3) = newvalue;
+                    datasheet(cornb,3) = newvalue;
                     figure(4)
                     clf
-                    plot(nonzeros(datafile(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+                    plot(nonzeros(datasheet(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
                     xlabel('Corrected f_0 values. x axis: glottal cycles')            
                     ylabel('f_0 in Hz')
                     if ~isempty(numb)
@@ -702,7 +702,7 @@ for i = 1:maxnb
                         disp(['Item on line ' num2str(i) ' of input text file.'])
                     end
                     disp('Fundamental frequency values: ')
-                    disp(rot90(datafile(:,3)))
+                    disp(rot90(datasheet(:,3)))
                 else
                     corr = 0;
                 end
@@ -728,24 +728,24 @@ for i = 1:maxnb
 
                 % placing chosen Oq values in 10th column of matrix.
                 if choiceOq == 0
-                    for k = 1:length(datafile(:,1))
-                         datafile(k,10) = datafile(k,5);
+                    for k = 1:length(datasheet(:,1))
+                         datasheet(k,10) = datasheet(k,5);
                     end
                 elseif choiceOq == 1
-                    for k = 1:length(datafile(:,1))
-                         datafile(k,10) = datafile(k,7);
+                    for k = 1:length(datasheet(:,1))
+                         datasheet(k,10) = datasheet(k,7);
                     end
                 elseif choiceOq == 2
-                    for k = 1:length(datafile(:,1))
-                         datafile(k,10) = datafile(k,8);
+                    for k = 1:length(datasheet(:,1))
+                         datasheet(k,10) = datasheet(k,8);
                     end
                 elseif choiceOq == 3
-                    for k = 1:length(datafile(:,1))
-                         datafile(k,10) = datafile(k,9);
+                    for k = 1:length(datasheet(:,1))
+                         datasheet(k,10) = datasheet(k,9);
                     end
                 elseif choiceOq == 4
-                    for k = 1:length(datafile(:,1))
-                         datafile(k,10) = 0;
+                    for k = 1:length(datasheet(:,1))
+                         datasheet(k,10) = 0;
                     end
                 end
 
@@ -757,7 +757,7 @@ for i = 1:maxnb
                         % obtained by the method chosen
                         % (after 90° rotation so the indices will be displayed)
                         disp('Open quotient values : ')
-                        disp(rot90(datafile(:,10)))
+                        disp(rot90(datasheet(:,10)))
                         disp('If values need to be suppressed, enter their index in vector:')
                         disp('for instance, 2 for 2nd value, 5:15 for values from 5 to 15.')
                         cornb = input('If all the values are correct now, type 0. Your choice : ');
@@ -774,18 +774,18 @@ for i = 1:maxnb
                         % correction.
                         if corr == 1          
                             if LE(2) == 1
-                                disp(['The specified value was ',num2str(datafile(cornb,10)),'.'])
+                                disp(['The specified value was ',num2str(datasheet(cornb,10)),'.'])
                                 disp('It is now set at zero, and will be excluded from the calculations.')
                             else
                                 disp('The specified values were:')
-                                disp(datafile(cornb,10))
+                                disp(datasheet(cornb,10))
                                 disp('They are now set at zero, and will be excluded from the calculations.')
                             end
                             disp('Refer to the figure to see modified curve.')
-                            datafile(cornb,10) = 0;
+                            datasheet(cornb,10) = 0;
                             figure(1)
                             clf
-                            plot(datafile(:,10), 'LineStyle','--', 'Marker', '*','Color', 'black', 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
+                            plot(datasheet(:,10), 'LineStyle','--', 'Marker', '*','Color', 'black', 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
                             xlabel('Corrected O_q values. x axis: glottal cycles')            
                             ylabel('O_q in %')
                         end
@@ -798,23 +798,23 @@ for i = 1:maxnb
 
               % checking that there is no doubling of the last line (this occasional
               % problem results in a bug that I have not identified, which causes
-              % the last line to be written twice into the <datafile> matrix)
-              ld = length(datafile(:,1));
+              % the last line to be written twice into the <datasheet> matrix)
+              ld = length(datasheet(:,1));
               if ld > 1
-                  if datafile(ld,:) == datafile(ld - 1,:)
-                      datafile = datafile(1:ld - 1,:);
+                  if datasheet(ld,:) == datasheet(ld - 1,:)
+                      datasheet = datasheet(1:ld - 1,:);
                   end
               end
 
               % calculating the number of periods (= nb of lines)
-              period_nb = size(datafile,1);
+              period_nb = size(datasheet,1);
 
               % calculating the number of columns
-              nbcol = length(datafile(1,:));
+              nbcol = length(datasheet(1,:));
               % assigning values in data matrix
                       for q = 1:nbcol
                         for r = 1:period_nb
-                            data(r,q,i) = datafile(r,q);
+                            data(r,q,i) = datasheet(r,q);
                         end
                       end
         % end of the condition on non-emptiness of f0 variable              
