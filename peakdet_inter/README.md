@@ -34,7 +34,7 @@ The method chosen consists in computing the second derivative of the EGG signal.
 
 Since the second derivative is even noisier than the first, smoothing needs to be applied (using the same convolution as for filtering the dEGG signal). Tests with Savitzky-Golay filtering (3rd-order polynomial over window of 7 points: the Matlab command is simply `sgolayfilt(ddEGG,3,7)`) are somewhat less conclusive than with a simple linearly weighted symmetric moving average. The figure below shows (i) the first derivative of the EGG signal (dEGG; top), (ii) the second derivative (ddEGG; middle), and (iii) the ddEGG signal after smoothing (in red).
 
-<img src="HOWTO/images/ddEGGmethod.png" alt="First and second derivative of the EGG signal. Glottalized cycles.">
+<img src="HOWTO/images/ddEGGmethod.png" alt="First and second derivative of the EGG signal. Glottalized cycles." height="400">
 
 Comparing dEGG and ddEGG, it looks as if there were no gain in terms of salience of the opening peak: opening peaks even seem harder to make out on the ddEGG signal (even after smoothing) than on the dEGG signal. The first six opening peaks are perfectly clear from the dEGG signal, whereas only the first four are really salient from the ddEGG signal before smoothing. Later peaks are even harder to guess. But looking at the second derivative more closely, there is nonetheless some promise in this method, because it achieves the goal of smoothing out the 'hills' in the dEGG signal. The image below shows the same cycle as above (left), now with the smoothed ddEGG signal (right), where a pulse is visible at a location corresponding to the opening peak that is indicative of the glottis-opening instant. 
 
