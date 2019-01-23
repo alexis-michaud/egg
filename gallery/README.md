@@ -37,7 +37,7 @@ Analysis of the EGG signal with `peakdet` yields the results shown in the figure
 
 <img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/ (meaning 'fruit'). Results of EGG analysis." height="288">
 
-_Figure 2._
+_Figure 2. The x axis represents glottal cycles, which constitute data points in the results file._
 
 Fundamental frequency (show as green dots on the figure) is low. The electroglottographic signal looks quasi-periodic (no noticeable jumps in duration from one cycle to the next), but measurements of f<sub>0</sub> bring out slight irregularities (jitter) as f<sub>0</sub> it reaches its lowest point, at glottal cycles 15 to 20. Those cycles are also a point where open quotient values (which are very low throughout this token) are harder to estimate: this is evidenced by the gap between the estimates in orange and in blue. The values in orange are calculated by simply detecting the local minimum in the EGG signal; those in blue take into account the shape of the signal (multiple peaks are detected, and a barycentre is calculated). In this token, the opening peaks in the derivative of the electroglottographic signal are so inconspicuous that it comes as a surprise that the orange line should not be discontinuous. 
 
@@ -53,7 +53,7 @@ Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially cont
 
 <img src="images/1_F13.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
-_Figure 4._
+_Figure 4. The x axis represents glottal cycles, which constitute data points in the results file._
 
 ### 2. Single-pulse creak
 
@@ -67,7 +67,7 @@ But examples 1 and 2 differ in no less important respects, as brought out in the
 
 <img src="images/2.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
-_Figure 6._
+_Figure 6. The x axis represents glottal cycles, which constitute data points in the results file._
 
 First, periodicity is lost. (The inverse of cycle duration is nonetheless still referred to as ' f<sub>0</sub>' for convenience.) Five or six cycles of 'jittery' f<sub>0</sub> are followed by rock-bottom values (below 40 Hz): _extremely low-frequency_ phonation.
 
@@ -77,13 +77,13 @@ Overall, example 2 can be described as more extreme than example 1: a clear laps
 
 ### 3. Double-pulse creak
 
-Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pulse creak), a third type is _double-pulse creak_, shown in the example in Figures 6 and 7.
+Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pulse creak), a third type is _double-pulse creak_, shown in the example in Figures 7 and 8.
 
 <img src="images/DoublePulse_sig.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/.">
 
 <img src="images/DoublePulse.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis.">
 
-_Figures 6 and 7._
+_Figures 7 and 8. In Figure 8, the x axis represents glottal cycles, which constitute data points in the results file._
 
 This type can be characterized by detection of peaks in the dEGG signal corresponding to glottis-closure instants: knowing the duration of each glottal cycle is enough to notice the double pulses. But it is interesting to have evidence on the open quotient as well, in cases like this one, where opening peaks on the dEGG signal can be detected, and the open quotient calculated with some confidence: the O<sub>q</sub> values reveal that the longer glottal cycles have lower O<sub>q</sub> than the shorter ones. This offers an additional insight into the strong differences between the main pulse and the secondary pulse.
 
