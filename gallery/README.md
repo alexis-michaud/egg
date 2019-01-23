@@ -55,13 +55,13 @@ Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially cont
 
 _Figure 4._
 
-### 2. Extremely low-frequency single-pulse creak
+### 2. Single-pulse creak
 
 <img src="images/2_sig.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Signals.">
 
 _Figure 5._
 
-Example 2 (the same word as in example 1, by another speaker) is similar to example 1 in important respects: (i) cycles are long and consist of a single pulse (as opposed to the double-pulsed or multiple-pulsed patterns which will be described below); (ii) the auditory impression is one of constriction, rather than relaxed phonation; and (iii) cycle length increases again after reaching the lowest values (i.e. glottalization does not interrupt voicing). 
+Example 2, shown in Figure 5 (the same word as in example 1, by another speaker), is similar to example 1 in important respects: (i) cycles are long and consist of a single pulse (as opposed to the double-pulsed or multiple-pulsed patterns which will be described below); (ii) the auditory impression is one of constriction, rather than relaxed phonation; and (iii) cycle length increases again after reaching the lowest values (i.e. glottalization does not interrupt voicing). 
 
 But examples 1 and 2 differ in no less important respects, as brought out in the analysis results below. 
 
@@ -69,18 +69,33 @@ But examples 1 and 2 differ in no less important respects, as brought out in the
 
 _Figure 6._
 
-First, periodicity is lost. (The inverse of cycle duration is nonetheless still referred to as ' f<sub>0</sub>' for convenience.) Five or six cycles of 'jittery' f<sub>0</sub> are followed by rock-bottom values (below 40 Hz). 
+First, periodicity is lost. (The inverse of cycle duration is nonetheless still referred to as ' f<sub>0</sub>' for convenience.) Five or six cycles of 'jittery' f<sub>0</sub> are followed by rock-bottom values (below 40 Hz): _extremely low-frequency_ phonation.
 
 Moreover, the opening peaks on the dEGG signal, which were still (just barely) clear enough in example 1 to allow for confident evaluation of the glottal open quotient, are so inconspicuous in example 2 that they tend to become indetectable, hence the disagreement between the values shown in blue and orange. It is not unreasonable, in view of the shape of the EGG signal, to consider that these cycles have an extremely short open phase, and the lowest O<sub>q</sub> values (those in orange, correcting for two outliers at the 9th and 15th cycles) provide good estimates: O<sub>q</sub> is on the order of just 20% (i.e. **rock-bottom values**, like for f<sub>0</sub>) for the longest cycles.
 
 Overall, example 2 can be described as more extreme than example 1: a clear lapse into creaky voice, with the lowest possible f<sub>0</sub> and O<sub>q</sub>, but still with a single pulse per cycle. Phonation is almost arrested by the strong constriction, and only continues 'pulse by pulse' as puffs of air find their way through the closed sphincter. 
 
+### 3. Double-pulse creak
+
+Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pulse creak), a third type is _double-pulse creak_, shown in the example in Figures 6 and 7.
+
+<img src="images/DoublePulse_sig.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/.">
+
+<img src="images/DoublePulse.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis.">
+
+_Figures 6 and 7._
+
+This type can be characterized by detection of peaks in the dEGG signal corresponding to glottis-closure instants: knowing the duration of each glottal cycle is enough to notice the double pulses. But it is interesting to have evidence on the open quotient as well, in cases like this one, where opening peaks on the dEGG signal can be detected, and the open quotient calculated with some confidence: the O<sub>q</sub> values reveal that the longer glottal cycles have lower O<sub>q</sub> than the shorter ones. This offers an additional insight into the strong differences between the main pulse and the secondary pulse.
+
+
 ## Summary in table form
 
-example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> |
-------- | ----------- | ----------- | ----------- | ----------- |------- |------- |
-1 | constricted creak | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  |
-2 | extremely low, single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom, and hard to measure from the EGG signal |
+example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> | phonation mechanism |
+------- | ----------- | ----------- | ----------- | ----------- |------- |------- | ----- |
+1 | constricted creak | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  | mechanism M1 |
+2 | single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom | mechanism M0 |
+2 | double-pulse creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 | low, 'saw-like' | mechanism M0 |
+
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
