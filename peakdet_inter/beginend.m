@@ -55,22 +55,22 @@ tline = ''; numline = '';
 tline = fgetl(fid);
 fclose(fid);
 
-if length(tline) > 14
-    % About three extra characters at beginning of file need to be
-    % excluded: Matlab does not handle Unicode, and UTF-8 files need a
-    % tweak.
-    if (tline(1) == 'ï') & (tline(2) == '»') & (tline(3) == '¿') 
-        tline = tline (4:length(tline))
-    end
-    
+% About three extra characters at beginning of file need to be
+% excluded: Matlab does not handle Unicode, and UTF-8 files need a
+% tweak.
+if (tline(1) == 'ï') & (tline(2) == '»') & (tline(3) == '¿') 
+    tline = tline (4:length(tline));
+end
+
+if length(tline) > 12
     % If the first 12 characters of <tline> are 'Regions List': this is
     % considered as a Regions List, and processed as such.
     if sum(tline(1:12) == 'Regions List') == 12
+        disp('Input regions file is in a Regions List format.')
         numer = 1;
     else
         numer = 0;
     end
-% If the length of the line is shorter: it cannot be a Sound Forge list of regions.    
 else
     numer = 0;
 end

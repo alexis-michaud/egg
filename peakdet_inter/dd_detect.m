@@ -20,9 +20,10 @@ end
 % smoothing ddEGG
 SddSIG = smoo(ddSIG,3);
 
-% Detecting negative peaks in ddEGG, and integrating them
+% Detecting negative peaks in ddEGG, and then integrating them into
+% 'pulses'
 
-rims = rim (-ddSIG, 0);
+rims = rim (-SddSIG, 0);
 % Threshold set at zero: to get all peaks, however small, and complete
 % integration.
 % Signal inverted (-ddSIG) so as to catch negative peaks first.
@@ -63,11 +64,11 @@ for i = 1:length(rims) - 1
         durationofpeak(nbpeaks) = (endimpulse(i) - begimpulse(i) ) / (FS / 100);
 
         % Intensity of peak: area below the curve
-        intensityofimpulse(nbpeaks) = sum(abs(ddSIG(begimpulse(i):endimpulse(i))));
+        intensityofimpulse(nbpeaks) = sum(abs(SddSIG(begimpulse(i):endimpulse(i))));
 
         % Cumulated amplitude of peak: maximum plus minimum peak
-        negpeak(nbpeaks) = min(ddSIG(rims(i, 1):rims(i, 2)));
-        pospeak(nbpeaks) = max(ddSIG(rims(i, 2):rims(i+1, 1)));
+        negpeak(nbpeaks) = min(SddSIG(rims(i, 1):rims(i, 2)));
+        pospeak(nbpeaks) = max(SddSIG(rims(i, 2):rims(i+1, 1)));
         totpeak(nbpeaks) = abs( negpeak(nbpeaks) ) + pospeak(nbpeaks); 
         peakrims(nbpeaks,1) = rims(i,1);
         peakrims(nbpeaks,2) = rims(i+1,1);

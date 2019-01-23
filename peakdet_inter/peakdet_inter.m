@@ -261,8 +261,20 @@ for i = 1:maxnb
             disp(['Currently treating item on line ' num2str(i) ' of input text file.'])
         end
         
-		% Extracting portion of signal corresponding to target item
-		[SIGpart] = SIG((round(time(1) * FS)):(round(time(2) * FS)));
+		% Extracting portion of signal corresponding to target item.
+        % Special case of first or last sample in sound file: round to
+        % first or last value to avoid looking for index zero or index that
+        % is later than the last sample.
+        firstsample = round(time(1) * FS);
+        if firstsample == 0
+            firstsample = 1;
+        end
+        lastsample = round(time(2) * FS);
+         if lastsample > length(SIG)
+            lastsample = length(SIG);
+        end
+       
+		[SIGpart] = SIG(firstsample:lastsample);
 		
         %%%%%%%%%%%%%% running main analysis programme
 %        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,...
