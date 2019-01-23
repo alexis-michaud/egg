@@ -45,7 +45,7 @@ To detect this pulse, which consists of a downward movement followed by an upwar
 - _total intensity_: the total intensity of the 'pulse' is computed by summing (in absolute values) all the samples inside the 'pulse'
 - and _duration_ of the 'pulse', from a crossing from a positive value to a negative value, to the next crossing to a positive value. 
 
-(The absolute values in the y scale in the first two bar plots are not significant by themselves, only as a means to compare the candidate 'pulses' among one another.)
+The graphs below show results computed from the ddEGG signal before smoothing. (The absolute values in the y scale in the first two bar plots are not significant by themselves, only as a means to compare the candidate 'pulses' among one another.)
 
 <img src="HOWTO/images/ddEGG_PulseIntegration.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Integrating the ddEGG signal during 'pulses' inside one glottalized cycle.">
 <img src="HOWTO/images/ddEGG_PulseMaxima.png" alt="Looking for a 'pulse' corresponding to glottis-opening-instant on the second derivative of the EGG signal. Examining maximum values in the ddEGG signal during 'pulses' inside one glottalized cycle.">
@@ -53,6 +53,9 @@ To detect this pulse, which consists of a downward movement followed by an upwar
 
 The seventy-seventh 'pulse', which corresponds to the glottis-opening instant as detected by visual examination of the dEGG signal, stands out in terms of the three variables examined. It is most distinct from the others in terms of its *integrated intensity*, which is 6.6 times greater than the average of the other 'pulses'. Its amplitude is also fairly salient: it is 3.2 times greater than the average of the other 'pulses'. Duration (as calculated here) is least distinctive, but it is still 2.6 times higher than the average of the other 'pulses'.
 
-Seen in this light, the second derivative of the EGG signal has potential for allowing reliable identification of glottis-opening instants in glottalized voicing. The way forward appears to be in the sensitive application of a combination of algorithms, guided by an evaluation of the characteristics of the EGG and audio signals. 
+Seen in this light, the second derivative of the EGG signal can be useful (i) to verify whether there is a well-marked glottis-opening-instant and (ii) to choose among competing hypotheses about the location of the glottis-opening-instant, especially in glottalized voicing. 
 
-_(Work in progress as of Jan. 22nd, 2019)_
+The way forward appears to be in the sensitive application of a combination of algorithms, guided by an evaluation of the characteristics of the EGG and audio signals. 
+
+
+_(Work in progress as of Jan. 23rd, 2019)_
