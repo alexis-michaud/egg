@@ -81,7 +81,7 @@ Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pu
 
 <img src="images/DoublePulse_sig.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/.">
 
-<img src="images/DoublePulse.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis. height="288">
+<img src="images/DoublePulse.png" alt="Double-pulsed creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 _Figures 7 and 8. In Figure 8, the x axis represents glottal cycles, which constitute data points in the results file._
 
