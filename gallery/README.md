@@ -94,7 +94,7 @@ example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses 
 ------- | ----------- | ----------- | ----------- | ----------- |------- |------- | ----- |
 1 | constricted creak | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  | mechanism M1 |
 2 | single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom | mechanism M0 |
-2 | double-pulse creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 | low, 'saw-like' | mechanism M0 |
+3 | double-pulse creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 | low, 'saw-like' | mechanism M0 |
 
 
 ## References
