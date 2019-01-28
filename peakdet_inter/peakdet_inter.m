@@ -163,7 +163,7 @@ method = 3;
 % choosing maximum possible f0
 maxF = 500;
 
-% choosing smoothing step
+% choosing smoothing step 
 smoothingstep = 3;
 
 % %%%% To set these variables manually, uncomment the blocks below. %%%%
@@ -824,7 +824,7 @@ for i = 1:maxnb
 
     % saving the results in a temporary data file; can be recovered in case MatLab
     % suddenly closes (due to error, computer crash, power supply problem...)
-    save tempdata data
+    save('tempdata')
     
     % Housekeeping: closing the figures. This matters for figure 4, which
     % is only opened in a specific case (modifications to f0 values) and

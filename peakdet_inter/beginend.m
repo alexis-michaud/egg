@@ -65,7 +65,9 @@ end
 if length(tline) > 12
     % If the first 12 characters of <tline> are 'Regions List': this is
     % considered as a Regions List, and processed as such.
-    if sum(tline(1:12) == 'Regions List') == 12
+    % This version of <beginend> supports English and French versions of
+    % Sound Forge.
+    if or ((sum(tline(1:12) == 'Regions List') == 12) , (sum(tline(1:10) == 'Liste de r') == 10))
         disp('Input regions file is in a Regions List format.')
         numer = 1;
     else
