@@ -142,11 +142,15 @@ elseif numer == 1
     while feof(fid) == 0
        linecount = linecount + 1;
        tline = fgetl(fid);
-       % Test that works for files created by SoundForge's "Regions Lists" functions:
-       % if the last character of line is a number then this is a line that
-       % contains relevant data.
+       % Double test to identify files created from Sound Forge's "Regions Lists":
+       % (i) the last character of line is a number 
+       % (ii) there are at least 68 characters in the line. This is the
+       % number of characters in case the user has not provided any label
+       % for the Region. This condition is designed to test for Sound Forge
+       % *markers*, as opposed to *regions*: markers do not delimit an area
+       % to analyze, and are therefore overlooked.
        if length(tline) > 0
-           if ~isempty(str2num(tline(length(tline))))
+           if (~isempty(str2num(tline(length(tline))))) & (length(tline) > 67)
                begpt = tline(length(tline) - 39:length(tline) - 28);
                % calculating beginning of item, in ms, converting it from the
                % <hours:minutes:seconds:milliseconds> format used by SoundForge
@@ -160,6 +164,10 @@ elseif numer == 1
                    str2num(endpt(10:12));
            else
                badlines = badlines + 1;
+               disp('This line in the input file does not seem to contain')
+               disp('a region to analyze, and is overlooked. >> ')
+               disp(tline)
+               disp(' ')
            end
            % retrieving number given to the item in the Regions List, if any
            NUMB = [];
