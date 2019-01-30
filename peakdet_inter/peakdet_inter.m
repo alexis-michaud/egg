@@ -829,12 +829,14 @@ for i = 1:maxnb
     % Housekeeping: closing the figures. This matters for figure 4, which
     % is only opened in a specific case (modifications to f0 values) and
     % would thus remain open (and unchanged) when treating the next token.
-    figure(1)
-    close
-    figure(2)
-    close
-    figure(3)
-    close
+    % For figures 1 to 3, on the other hand, it seems OK to leave them
+    % open.
+% %     figure(1)
+% %     close
+% %     figure(2)
+% %     close
+% %     figure(3)
+% %     close
     figure(4)
     close
     
