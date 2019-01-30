@@ -125,9 +125,13 @@ This corresponds to _aperiodicity_ as characterized by Laura Redi and Stefanie S
 
 <img src="images/AperiodicCreak_F12.png" alt="Aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’. Results of EGG analysis." height="288">
 
-_Figure for aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’. In the figure showing the results of EGG analysis, the x axis represents glottal cycles, which constitute data points in the results file._
+_Figure 9 and 10: aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’. In the figure showing the results of EGG analysis, the x axis represents glottal cycles, which constitute data points in the results file._
 
+A difference from multiply pulsed voice is that, in aperiodic creak, the glottal open quotient cannot be estimated: opening peaks do not stand out clearly (except in two of the forty-five cycles: the first and the fifth), as shown in the figure below. 
 
+<img src="images/AperiodicCreak_F12_OpeningPeaks.png" alt="Aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’. Results of EGG analysis.">
+
+In terms of fundamental frequency, only periods 24 to 28 (in Figure 10) show a pattern that resembles multiply pulsed voice (specifically, double-pulsed voice).
 
 ## Summary in table form
 
@@ -135,7 +139,7 @@ example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses 
 ------- | ----------- | ----------- | ----------- | ----------- |------- |------- | ----- |
 1 | constricted creak | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  | mechanism M1 |
 2 | single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom | mechanism M0 |
-3 | double-pulse creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 | low, 'saw-like' | mechanism M0 |
+3 | multiply pulsed creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 or 3 | low, 'saw-like' | mechanism M0 |
 
 
 ## References
