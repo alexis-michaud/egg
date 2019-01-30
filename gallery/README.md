@@ -5,7 +5,9 @@ The diversity of electroglottographic signals is impressive. States of the glott
 
 The gallery presented here aims to provide a basis for a classification of phonation types. The idea is to identify some _types_, and relate them to the various classifications proposed in the literature. Emphasis is laid on quantified criteria, which allow for the automatic detection of these types. This is expected to facilitate discussion of phonation types among phoneticians. 
 
-The work is now (2019) in its initial stage, with _glottalization_ as a first area of investigation.
+
+
+The work is now (2019) in its initial stage, with _glottalization_ as a first area of investigation. (Data and analyses by [Minh-Châu Nguyên](https://lacito.vjf.cnrs.fr/membres/nguyen_en.htm), under the supervision of Alexis Michaud, Lise Buchman and Didier Demolin. Pages maintained by Alexis Michaud. Comments, feedback & collaborations are most welcome.)
 
 ## Types of glottalization: glottal constriction, creaky voice/vocal fry, irregular phonation...
 
