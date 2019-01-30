@@ -75,7 +75,21 @@ Moreover, the opening peaks on the dEGG signal, which were still (just barely) c
 
 Overall, example 2 can be described as more extreme than example 1: a clear lapse into creaky voice, with the lowest possible f<sub>0</sub> and O<sub>q</sub>, but still with a single pulse per cycle. Phonation is almost arrested by the strong constriction, and only continues 'pulse by pulse' as puffs of air find their way through the closed sphincter. 
 
-### 3. Double-pulse creak
+### 3. Multiply pulsed voice
+
+Quoting from Keating, Garellek & Kreiman (2015: 2):
+
+> A very common form of creak involves a special
+> kind of F0 irregularity: alternating longer and shorter
+> pulses. (...) In the case
+> of double pulsing (or period doubling), there are two
+> simultaneous periodicities; higher multiples are also
+> possible. There are thus multiple F0s, usually one 
+> quite low and another about (though not exactly) an
+> octave higher, but the resulting percept is usually of
+> an indeterminate pitch, plus roughness.
+
+#### 3.1. Double-pulsed creak
 
 Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pulse creak), a third type is _double-pulse creak_, shown in the example in Figures 7 and 8.
 
@@ -86,6 +100,31 @@ Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pu
 _Figures 7 and 8. In Figure 8, the x axis represents glottal cycles, which constitute data points in the results file._
 
 This type can be characterized by detection of peaks in the dEGG signal corresponding to glottis-closure instants: knowing the duration of each glottal cycle is enough to notice the double pulses. But it is interesting to have evidence on the open quotient as well, in cases like this one, where opening peaks on the dEGG signal can be detected, and the open quotient calculated with some confidence: the O<sub>q</sub> values reveal that the longer glottal cycles have lower O<sub>q</sub> than the shorter ones. This offers an additional insight into the strong differences between the main pulse and the secondary pulse.
+
+#### 3.2. Triple-pulsed creak
+
+(coming soon)
+
+### 4. Aperiodic creak
+
+This type corresponds to _aperiodic voice_ as characterized by Keating, Garellek & Kreiman (2015: 2). Quoting:
+
+> Another variant of F0 irregularity is when it is taken
+> to the extreme – vocal fold vibration is so irregular
+> that there is no periodicity and thus no perceived
+> pitch. See Fig. 5. Like multiply pulsed voice,
+> aperiodic voice lacks the prototypical property of
+> low F0; instead, the property of irregular F0 is
+> enhanced, and the voice is therefore noisy.
+
+This corresponds to _aperiodicity_ as characterized by Laura Redi and Stefanie Shattuck-Hufnagel (2001: 414): “irregularity in duration of glottal pulses from period to period.” 
+
+<img src="images/AperiodicCreak_F12_sig.png" alt="Aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’.">
+
+<img src="images/AperiodicCreak_F12.png" alt="Aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’. Results of EGG analysis." height="288">
+
+_Figure for aperiodic creak. Muong speaker F12. Syllable /rɔ⁴/ ‘banana flower’. In the figure showing the results of EGG analysis, the x axis represents glottal cycles, which constitute data points in the results file._
+
 
 
 ## Summary in table form
@@ -99,5 +138,6 @@ example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses 
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
+- Redi, Laura & Stefanie Shattuck-Hufnagel. 2001. Variation in the realization of glottalization in normal speakers. _Journal of Phonetics_ 29(4). 407–429.
 - Roubeau, Bernard, Nathalie Henrich & Michèle Castellengo. 2009. Laryngeal vibratory mechanisms: the notion of vocal register revisited. _Journal of Voice_ 23(4). 425–38.
 
