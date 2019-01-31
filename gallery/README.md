@@ -1,4 +1,4 @@
-Gallery of electroglottographic signals [work in progress]
+Gallery of electroglottographic signals [work in progress] 
 =============
 
 The diversity of electroglottographic signals is impressive. States of the glottis can change rapidly: signals for the same speaker are highly diverse. There is diversity across phonological categories, diversity among speaking styles, diversity along the lifespan, and of course there are differences across speakers. 
