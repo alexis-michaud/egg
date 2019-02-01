@@ -1,0 +1,5 @@
+﻿Liste de régions : 1_ConstrictedCreak_M1_EGG.wav
+
+Nom                                Début           Fin      Longueur
+-------------------------- ------------- ------------- -------------
+Constricted creak with single pulse (In carried sentence)  00:00:00,000  00:00:00,388  00:00:00,388
