@@ -54,4 +54,26 @@ xlabel('Time in centiseconds.')
 ylabel('From top: audio; EGG; unsmoothed dEGG; smoothed dEGG.')
 
 print('-dpdf', 'C:\Dropbox\GitHub\egg\gallery\images\AperiodicCreak_F12_sig.pdf')
-print('-dpng', 'C:\Dropbox\GitHub\egg\gallery\images\AperiodicCreak_F12_sig.png')
+
+%%% Generating PNG output.
+% The code below invokes <export_fig>, a toolbox for exporting figures from
+% MATLAB to standard image and document formats nicely. It is freely available
+% (here: https://github.com/altmany/export_fig ). This is a great toolbox,
+% but users who do not want to try it out can revert to the simpler print
+% command by commenting out the commands in the block below, and uncommenting the
+% print command in the last lines of this script.     
+%
+% So here is the block that does a 'clean' export to crisp PNG file, using
+% the <export_fig> function. 
+set(gcf, 'Color', 'w');     % setting background colour to white
+% The -r option specifies resolution. It is set at 300 dpi. This is much
+% higher than the default; it allows for good display of drawings with thin
+% lines. The warnings about generating a very big file can be safely
+% ignored, as the file size is drastically reduced when writing the output
+% to PNG format.
+export_fig -r300 'C:\Dropbox\GitHub\egg\gallery\images\AperiodicCreak_F12_sig.png'
+
+% % Simpler option (but with low-resolution result) for figure output:
+% % Uncomment this line in case you want to fall back on this (avoiding the
+% % need for the <export_fig> toolbox).
+% print('-dpng', 'C:\Dropbox\GitHub\egg\gallery\images\AperiodicCreak_F12_sig.png')
