@@ -1,11 +1,13 @@
 Gallery of electroglottographic signals [work in progress] 
 =============
 
-The diversity of electroglottographic signals is impressive. States of the glottis can change rapidly: signals for the same speaker are highly diverse. There is diversity across phonological categories, diversity among speaking styles, diversity along the lifespan, and of course there are differences across speakers. 
+The diversity of electroglottographic signals is impressive. States of the glottis can change rapidly. There is diversity across phonological categories, diversity among speaking styles, diversity along the lifespan, and of course there are differences across speakers. 
 
 The gallery presented here aims to provide a basis for a classification of phonation types. The idea is to identify some _types_, and relate them to the various classifications proposed in the literature. Emphasis is laid on quantified criteria, which allow for the automatic detection of these types. This is expected to facilitate discussion of phonation types among phoneticians. 
 
+Present-day digital tools allow for including the data and tools in this repository, along with reflections on states of the glottis. The term 'gallery' may be too static to describe what we are building here: perhaps it should be called a 'playground' instead. For all examples in this gallery, the signals can be downloaded from the **gallery** folder: for instance, for Figure 1 below, here are links to the [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder, and re-create them by running the scripts. 
 
+On a technical note: the scripts that create the figures require `export_fig`, a toolbox for exporting figures from MATLAB to standard image and document formats nicely (available [here](https://github.com/altmany/export_fig)). This is a great toolbox, but users who do not want to try it out can revert to the simpler `print` command by commenting out the `export_fig` command and uncommenting the `print` command in the last lines of the script that produces a figure.
 
 The work is now (2019) in its initial stage, with _glottalization_ as a first area of investigation. (Data and analyses by [Minh-Châu Nguyên](https://lacito.vjf.cnrs.fr/membres/nguyen_en.htm), under the supervision of Alexis Michaud, Lise Buchman and Didier Demolin. Pages maintained by Alexis Michaud. Comments, feedback & collaborations are most welcome.)
 
@@ -26,8 +28,6 @@ The approach chosen here consists in testing to what extent phonetic subtypes ca
 ### 1. Pressed voice / glottal constriction / constricted creak
 
 The first example is a token of strongly pressed voice, which can be called _constricted creak_ if one uses the term 'creak' broadly. 
-
-(Note that for all examples in this gallery, the signals can be downloaded from the **gallery** folder: for instance, for Figure 1 below, here are links to the [audio](1_ConstrictedCreak_M1_AUD.wav) and [electroglottographic signal](1_ConstrictedCreak_M1_EGG.wav). You can also download the figures as vector drawings (in PDF format) from the **images** folder.)
 
 <img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/. Signals.">
 
@@ -144,6 +144,7 @@ example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses 
 
 ## References
 - Keating, Patricia, Marc Garellek & Jody Kreiman. 2015. Acoustic properties of different kinds of creaky voice. _Proceedings of the 18th International Congress of Phonetic Sciences_. Glasgow.
+- Marasek, Krzysztof. 1997. Electroglottographic description of voice quality. _AIMS Working Papers Stuttgart_, Vol. 3. [See website](http://www2.ims.uni-stuttgart.de/EGG/) from 1997, still available as of 2019.
 - Redi, Laura & Stefanie Shattuck-Hufnagel. 2001. Variation in the realization of glottalization in normal speakers. _Journal of Phonetics_ 29(4). 407–429.
 - Roubeau, Bernard, Nathalie Henrich & Michèle Castellengo. 2009. Laryngeal vibratory mechanisms: the notion of vocal register revisited. _Journal of Voice_ 23(4). 425–38.
 
