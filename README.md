@@ -5,14 +5,14 @@ This repository hosts scripts for analysis of the electroglottographic signal, a
 
 ### About the language
 
-Currently the scripts are in `Matlab`. As of 2019, re-programming them in Julia seems the way to go, for three main reasons: 
+Currently the scripts are in `Matlab`. As of 2019, re-programming them in `Julia` would seem the way to go, for three main reasons: 
 * `Julia` is open source, and "when students are trained on open source software, they learn skills that are not hostage to a particular company or product, and can stay with them through their professional careers" (Viral Shah, from an interview with _Analytics India Magazine_).
-* Among open source languages, `Julia` is legible, and thus much better than Perl or Python. It is also 'cleaner' than R.
+* Among open source languages, `Julia` is legible, and thus much better than `Perl` (typical 'write-only' language) or `Python`. It is also 'cleaner' than `R`.
 * `Julia` handles Unicode (which is absolutely essential for linguists, phoneticians...) whereas `Matlab` does not. 
 
 If you would be interested in using one of these scripts in `Julia`, please let us know (for instance by opening an Issue).
 
-Praat users are advised to try out James Kirby's [`praatdet`](https://github.com/kirbyj/praatdet) or Cédric Gendrot's [`oq1praat`](http://voiceresearch.free.fr/egg/#downloads).
+`Praat` users are advised to try out James Kirby's [`praatdet`](https://github.com/kirbyj/praatdet) or Cédric Gendrot's [`oq1praat`](http://voiceresearch.free.fr/egg/#downloads).
 
 ## 1) a script for visualizing average curves for sets of tokens: *aver*
 See [this folder](https://github.com/alexis-michaud/egg/tree/master/aver). 
