@@ -41,10 +41,10 @@
 % Some parameters need to be set for the analysis. They are set within the
 % script. It is also possible to uncomment lines 169 to 190 in the script:
 % the user will then be asked to provide values for various parameters. 
-% This option was the default in version 1. For heavy-duty use, this had the drawback of requiring the
-% user to input the same information time and again (every time the script
-% was run). So, in the current version (version 2), values are set inside
-% the script.
+% This option was the default in version 1. For heavy-duty use, this had
+% the drawback of requiring the user to input the same information time and
+% again (every time the script was run). So, in the current version
+% (version 2), values are set inside the script.
 % (1) <resampC>: coefficient for resampling peaks to a higher sampling rate
 % The electroglottographic signal is reinterpolated at the closing and opening
 % peaks for accurate peak detection. The coefficient for reinterpolation is
@@ -73,7 +73,7 @@
 %  - One closing peak has been detected before the onset of voicing or after the
 %    offset of voicing, resulting in the detection of a ‘period’ the inverse of
 %    which is under 20 Hz. These cases can be corrected by suppressing the first
-%    or last period ; this option is offered by the program, at the stage where
+%    or last glottal cycle ; this option is offered by the program, at the stage where
 %    the user is asked to check the results.
 %  - Some closing peaks within a voiced portion of signal have gone undetected
 %    because their amplitude is below the threshold. The user must then check on
@@ -136,19 +136,33 @@ clear
 
 % setting resampling coefficient
 resampC = 100;
+disp(' ')
+disp('Resampling coefficient, for accurate estimation of peak amplitude ')
+disp(['on the derivative of the EGG signal: set at ',num2str(resampC),'.'])
+disp('(To modify this value, modify the <resampC> variable inside the <peakdet_inter> script.)')
+disp(' ')
 
-% initializing matrix; assumption: there will be no more than 100 periods in each
-% analyzed token; this value, which is sufficient for single syllables, 
-% can be changed below, in order to treat longer intervals of voicing at one go:
-MaxPerN = 100;
-data(MaxPerN,10,1) = 0; 
+% initializing matrix; assumption: there will be no more than 100 cycles
+% in each analyzed token. This value is sufficient for single syllables. 
+% The value can be changed here in order to treat longer intervals of
+% voicing at one go.
+MaxCycN = 100;
+data(MaxCycN,10,1) = 0; 
+disp('Maximum number of glottal cycles per token: ')
+disp(['set at ',num2str(MaxCycN),'.'])
+disp('(To modify this value, modify the <MaxCycN> variable inside the <peakdet_inter> script.)')
+disp(' ')
 
-% setting coefficient for recognition of "double peaks": for closings, is 0.5,
-% following Henrich N., d'Alessandro C., Castellengo M. et Doval B., 2004, "On
-% the use of the derivative of electroglottographic signals for characterization 
-% of non-pathological voice phonation", Journal of the Acoustical Society of America, 
-% 115(3), pp. 1321-1332.
 propthresh = 0.5;
+disp(['The coefficient for recognition of "double peaks" on closing peaks is set at ',num2str(propthresh),'.'])
+disp('A value of 0.5 is recommended by Nathalie Henrich et al. (2004), ')
+disp('"On the use of the derivative of electroglottographic signals for characterization ')
+disp('of non-pathological voice phonation", Journal of the Acoustical Society of America, ')
+disp('115(3), pp. 1321-1332.')
+disp('(To modify this value, modify the <propthresh> variable inside the <peakdet_inter> script.)')
+disp(' ')
+
+
 
 % choice of method chosen to handle double closing peaks in f0 calculation:
 % if <method == 0>: selecting highest of the peaks
@@ -277,13 +291,13 @@ for i = 1:maxnb
 		[SIGpart] = SIG(firstsample:lastsample);
 		
         %%%%%%%%%%%%%% running main analysis programme
-%        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,...
+%        [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,...
 %            dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF);	
-		[f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,dSIG,SdSIG] = ...
+		[f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
     FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
 	    %%% Placing main results in a single matrix
         % Structure of matrix: 
-        % - beginning and end of period : in 1st and 2nd columns
+        % - beginning and end of cycle : in 1st and 2nd columns
         % - f0 : 3rd column
         % - DECPA : 4th column
         % - Oq determined from raw maximum, and DEOPA : 5th and 6th columns
@@ -371,8 +385,8 @@ for i = 1:maxnb
                 disp(rot90(datasheet(:,3)))
                 disp('If all the f0 values are correct, type 0 (zero).')
                 disp(' ')
-                disp('The red lines on figures 2 and 3 indicate the first and last detected periods.')
-                disp('If some of the periods went undetected, or extra periods were erroneously detected, enter 1 (one).')
+                disp('The red lines on figures 2 and 3 indicate the first and last detected glottal cycles.')
+                disp('If some of the glottal cycles went undetected, or extra cycles were erroneously detected, enter 1 (one).')
                 disp('You will then be asked to change the values of some of the settings.')
                 disp(' ')
                 disp('If you wish to correct some of the f0 values, enter 2.')
@@ -380,10 +394,10 @@ for i = 1:maxnb
                 % when placing the time boundaries includes a preceding glottal closure
                 % that should not in fact count as part of the voiced portion under
                 % investigation. In that case, it is useful for the user to be able to
-                % exclude this extra closing, which results in an extra period at
+                % exclude this extra closing, which results in an extra cycle at
                 % beginning of syllable giving a wrong notion as to the duration of the
                 % syllable and the initial f0 and Oq values.
-                cornb = input('If the coefficient is correct but the initial/final period(s) must be suppressed, enter 3. > ');
+                cornb = input('If the coefficient is correct but the initial/final cycle(s) must be suppressed, enter 3. > ');
             end
             if cornb == 0
                 % setting coefloop at 0, to exit the second "while" loop
@@ -399,13 +413,13 @@ for i = 1:maxnb
                 while coefloop == 0
                     disp(' ')
                     disp(' ')
-                    disp('If too many periods were detected, you may change the threshold for maximum f0.')
+                    disp('If too many glottal cycles were detected, you may change the threshold for maximum f0.')
                     disp(['The present threshold is: ',num2str(maxF)]) 
                     maxF = input('New value for the threshold (in Hz): > ');
                     coefloop = 1;
                     disp(' ')
                     disp(' ')
-                    disp('If too few periods were detected, you may change the threshold for peak detection.')
+                    disp('If too few glottal cycles were detected, you may change the threshold for peak detection.')
                     if COEF(3) == 1
                         disp('The present threshold is set (by default) at 0.5 of the maximum in this portion of the signal.')
                     else
@@ -446,12 +460,12 @@ for i = 1:maxnb
                         clear datasheet
 
                         %%%%%%%%%%%%%% running main analysis programme again
-                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,dSIG,SdSIG] = ...
+                        [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
     FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
 
 % previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)      
 
-                        % setting a counter for number of periods placed in results
+                        % setting a counter for number of cycles placed in results
                         % matrix <datasheet>
                         chosen = 0;
                         for ii = 1:length(f0)
@@ -472,7 +486,7 @@ for i = 1:maxnb
                         COEF(4) = coefchange2;
 
                         %%%%%%%%%%%%%% running main analysis programme again
-                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,dSIG,SdSIG] = ...
+                        [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
     FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
 
 % previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)            
@@ -505,8 +519,8 @@ for i = 1:maxnb
                 lopoff = 0;
                 while lopoff == 0
                     disp('  ')
-                    disp('To suppress first period, enter 1. To suppress last period, enter 9.');
-                    PERN = input('If no period suppression is needed, enter 0. > ');
+                    disp('To suppress first cycle, enter 1. To suppress last cycle, enter 9.');
+                    PERN = input('If no cycle suppression is needed, enter 0. > ');
                     % if the first line must be suppressed:
                     if PERN == 1
                         TRANS = [];
@@ -671,14 +685,14 @@ for i = 1:maxnb
                   end
               end
 
-              % calculating the number of periods (= nb of lines)
-              period_nb = size(datasheet,1);
+              % calculating the number of cycles (= nb of lines)
+              cycle_nb = size(datasheet,1);
 
               % calculating the number of columns
               nbcol = length(datasheet(1,:));
               % assigning values in data matrix
                       for q = 1:nbcol
-                        for r = 1:period_nb
+                        for r = 1:cycle_nb
                             data(r,q,i) = datasheet(r,q);
                         end
                       end
