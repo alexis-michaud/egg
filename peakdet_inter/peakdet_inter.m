@@ -687,9 +687,18 @@ for i = 1:maxnb
     % end of the WHILE loop
     end
 
-    % saving the results in a temporary data file; can be recovered in case MatLab
-    % suddenly closes (due to error, computer crash, power supply problem...)
-    save('tempdata')
+    % saving the results in a temporary data file: this can be recovered in
+    % case MatLab suddenly closes (due to computer crash, power supply
+    % problem...).
+    % This line of code only saves the data matrix, so as to avoid writing
+    % a huge file containing the EGG signal, its derivative etc. at each
+    % iteration of the loop processing 1 item. A drawback is that
+    % <tempdata> does not contain the whole work space: to resume the work
+    % where the user left off, it is necessary to re-load the EGG file,
+    % etc. If file size is not an issue, comment this line of code and
+    % uncomment the line below, which saves the whole workspace.
+    save peakdet_tempdata data
+%    save peakdet_tempdata
     
     % Housekeeping: closing the figures. This matters for figure 4, which
     % is only opened in a specific case (modifications to f0 values) and
