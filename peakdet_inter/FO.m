@@ -1,4 +1,4 @@
-function [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,dSIG,SdSIG] = ...
+function [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,dSIG,SdSIG,ddSIG,SddSIG] = ...
     FO(COEF,method,propthresh,resampC,maxF,SIG,FS)
 
 % FO: detection of Fundamental frequency and Open quotient on the basis of the
@@ -45,7 +45,8 @@ Ts = 1 / COEF(1);
 
 % check that the signal is Mono; if it is stereo: de-multiplexing it
 [S,P] = size(SIG);
-%%%% calculating the derivative of the signal
+
+%%%% calculating the first derivative of the signal
 % <dSIG> is the first derivative of <SIG>. No smoothing is done at this stage, as the
 % detection of the closing peaks is best done using the unsmoothed signal. If a
 % smoothing step has been specified, it is used later: in the detection of opening peaks.
@@ -53,14 +54,29 @@ dSIG = [];
 for w = 1 : length(SIG) - 1
    dSIG (w) = SIG (w + 1) - SIG (w);
 end
-
-%%%% smoothing the derivative of the signal
+%
+%%%% smoothing the first derivative of the signal
 if C_SMOO > 0
-    disp('Smoothing signal...')
+    disp('Smoothing the first derivative of the electroglottographic signal...')
     SdSIG = smoo(dSIG,C_SMOO);
     disp('Smoothed.')
 else
     SdSIG = dSIG;
+end
+
+%%%% calculating the second derivative of the signal
+ddSIG = [];
+for w = 1 : length(dSIG) - 1
+   ddSIG (w) = dSIG (w + 1) - dSIG (w);
+end
+
+%%%% smoothing the derivative of the signal
+if C_SMOO > 0
+    disp('Smoothing the second derivative of the electroglottographic signal...')
+    SddSIG = smoo(ddSIG,C_SMOO);
+    disp('Smoothed.')
+else
+    SddSIG = ddSIG;
 end
 
 % detecting points where the DEGG signal crosses the threshold; this is done

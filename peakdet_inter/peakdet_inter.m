@@ -322,7 +322,7 @@ for i = 1:nb_of_items
         %%%%%%%%%%%%%% running main analysis programme
 %        [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,...
 %            dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF);	
-		[f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
+		[f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG,ddSIG,SddSIG] = ...
     FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
 	    %%% Placing main results in a single matrix
         % Structure of matrix: 
@@ -380,28 +380,70 @@ for i = 1:nb_of_items
             
 
             %%% plotting signals (EGG and dEGG), so the user can check visually the shape
-            %%% of the peaks. Since the version of August 2007, the limits
-            %%% of the voiced portion as detected by the script are
-            %%% indicated on the figures showing the EGG and dEGG signals.
+            %%% of the peaks. Detected cycles are marked by vertical lines.
+            % (Previously, since the version of August 2007, the limits
+            % of the voiced portion as detected by the script were
+            % indicated on the figures showing the EGG and dEGG signals.)
+            %
+            % Figure 2: electroglottographic signal.
             figure(2)
             clf
             plot(SIGpart);
             hold on
-            xlabel('Electroglottographic signal. Red bars: first and last detected closures.')
-            % showing where the first and last closures have been detected
-            firstclo = datasheet(1,1) * FS;
-            lastclo = datasheet(length(nonzeros(datasheet(:,2))),2) * FS;
-            plot([firstclo firstclo],[-0.3 0.3],'-r')
-            plot([lastclo lastclo],[-0.3 0.3],'-r')
+            xlabel('Electroglottographic signal. Red bars: detected closures.')
             
+            % Figure 3: first derivative.
             figure(3)
             clf
             plot(SdSIG);
-            xlabel('Derivative of the EGG (after smoothing). Red bars: first and last detected closures.')
+            xlabel('Derivative of the EGG (after smoothing). Red bars: detected closures.')
             hold on
-            % showing where the first and last closures have been detected
-            plot([firstclo firstclo],[-0.01 0.02],'-r')
-            plot([lastclo lastclo],[-0.01 0.02],'-r')
+            
+            % Figure 4: second derivative.
+            figure(4)
+            clf
+            plot(SddSIG);
+            xlabel('Second derivative of the EGG (after smoothing). Red bars: detected closures.')
+            hold on
+            
+           %%% showing where the closures have been detected
+           % Loop for figures: 2 to 4
+           for m = 2:4
+               figure(m)
+               %%% finding out at which y coordinates the lines and numbers
+               %%% can be plotted 
+               % Extent of y axis:
+               ybottom_and_top = ylim;
+               ybottom = ybottom_and_top(1);
+               ytop = ybottom_and_top(2);
+               yrange = abs( ytop - ybottom );
+               % Selected y values are placed at 1/8th of the range from
+               % the limit.
+               ytoptext = ytop - (yrange / 8);
+               ybottomtext = ybottom + (yrange / 8);
+               % As for the lines indicating the closures, they are set off
+               % from text at 1/5th of top, and at 1/8th of bottom (as the
+               % dEGG signal is typically asymmetrical, with a zero line
+               % closer to bottom).
+               ybottomline = ybottom + (yrange / 8);
+               ytopline = ytop - (yrange / 5);
+
+               for k = 1:length(datasheet(:,1))
+                   clo = datasheet(k,1) * FS;
+                   % indicating the closing through a vertical bar 
+                   plot([clo clo],[ybottomline ytopline],'--r')
+                   % indicating number at top and bottom. Along the x axis:
+                   % write the figure *after* the glottis-closure instant,
+                   % so that it will be inside the interval corresponding
+                   % to the cycle.
+                   xtext = clo + 40;
+                   text(xtext,ytoptext,num2str(k),'Fontsize',13);
+                   text(xtext,ybottomtext,num2str(k),'Fontsize',13);
+               end
+               % Drawing the last closing
+               lastclo = datasheet(length(nonzeros(datasheet(:,2))),2) * FS;
+               plot([lastclo lastclo],[ybottomline ytopline],'-r')
+           end
 
             % tiling figures
             tilefigs([2 2])
