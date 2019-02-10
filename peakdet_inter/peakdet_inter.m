@@ -134,6 +134,8 @@
 % % clearing workspace
 clear
 
+% % Setting parameters for the analysis of the electroglottographic
+% signals.
 % setting resampling coefficient
 resampC = 100;
 disp(' ')
@@ -141,7 +143,7 @@ disp('Resampling coefficient, for accurate estimation of peak amplitude ')
 disp(['on the derivative of the EGG signal: set at ',num2str(resampC),'.'])
 disp('(To modify this value, modify the <resampC> variable inside the <peakdet_inter> script.)')
 disp(' ')
-
+%
 % initializing matrix; assumption: there will be no more than 100 cycles
 % in each analyzed token. This value is sufficient for single syllables. 
 % The value can be changed here in order to treat longer intervals of
@@ -152,35 +154,53 @@ disp('Maximum number of glottal cycles per token: ')
 disp(['set at ',num2str(MaxCycN),'.'])
 disp('(To modify this value, modify the <MaxCycN> variable inside the <peakdet_inter> script.)')
 disp(' ')
-
+%
+% Threshold for recognition of double peaks
 propthresh = 0.5;
-disp(['The coefficient for recognition of "double peaks" on closing peaks is set at ',num2str(propthresh),'.'])
+disp(['The coefficient for recognition of double peaks on closing peaks is set at ',num2str(propthresh),'.'])
 disp('A value of 0.5 is recommended by Nathalie Henrich et al. (2004), ')
 disp('"On the use of the derivative of electroglottographic signals for characterization ')
 disp('of non-pathological voice phonation", Journal of the Acoustical Society of America, ')
 disp('115(3), pp. 1321-1332.')
 disp('(To modify this value, modify the <propthresh> variable inside the <peakdet_inter> script.)')
 disp(' ')
-
-
-
-% choice of method chosen to handle double closing peaks in f0 calculation:
-% if <method == 0>: selecting highest of the peaks
-% if <method == 1>: selecting first peak
-% if <method == 2>: selecting last peak
-% if <method == 3>: using barycentre method
-% if <method == 4>: exclude all double peaks
-%
+% 
+disp('choice of method chosen to handle multiple peaks:')
 % Default: use barycentres.
 method = 3;
-
-% choosing maximum possible f0
+if method == 0
+    disp('selecting the highest among the peaks.')
+elseif method == 1
+    disp('selecting the first peak.')
+elseif method == 2
+    disp('selecting the last peak.')
+elseif method == 3
+    disp('using barycentre method.')
+elseif method == 4
+    disp('exclude all double peaks.')
+end
+disp('(To change the method: modify the <method> variable inside the script.')
+disp(' ')
+%
+% choosing upper threshold for f0: maximum possible f0 value. This is used
+% to set a condition on the interpretation of positive peaks on the
+% derivative of the EGG signal as indicators of glottis-closure instants:
+% if positive peaks are so close to each other that the corresponding
+% frequency (inverse of the period) is higher than the threshold, peak
+% identification needs to be re-examined.
 maxF = 500;
-
-% choosing smoothing step 
+disp(['The upper threshold for f0 is set at ',num2str(maxF),'.'])
+disp('(To change this value: modify the <maxF> variable inside the script.')
+disp(' ')
+%
+% choosing smoothing step for the derivative of the EGG signal 
 smoothingstep = 3;
+disp(['The smoothing step for the derivative of the EGG signal is set at ',num2str(smoothingstep),'.'])
+disp('(To change this value: modify the <smoothingstep> variable inside the script.')
+disp(' ')
 
-% %%%% To set these variables manually, uncomment the blocks below. %%%%
+% %%%% To set the above parameters manually, uncomment the entire block
+% below, and comment the entire block that precedes. %%%%
 % % method for handling double closing peaks: 
 % disp(' ')
 % disp('In case of multiple closing peaks, the value selected in peak detection')
@@ -209,7 +229,6 @@ smoothingstep = 3;
 % reading the signal
 [SIG,FS] = audioread([pathEGG EGGfilename]);
 
-
 %%% loading file that contains beginning and endpoint of relevant
 %%% portions of the signal, and the number of the item
 % If there exists a text file with the same name as the file of the
@@ -229,50 +248,59 @@ end
 % retrieving number of lines and columns in LENG:
 [NumL,NumC] = size(LENG);
 
-% computing total number of syllables
-maxnb = NumL;
+% computing total number of items (typically: vowels, syllables, or
+% syllable rhymes)
+nb_of_items = NumL;
 
 % loop for syllables
-for i = 1:maxnb
-    % loop allowing the user to modify the parameters in view of the results.
-    % Uses a variable <SATI>, for SATIsfactory. It is set at 0 to begin with.
-    SATI = 0;
-    
-    % initialization of an extra variable used to know whether changes
-    % must be made in the Oq values. Set at 0 to begin with.
-    OqCHAN = 0;
+for i = 1:nb_of_items
 
-    % assigning default values to <COEF> vector, used in FO: sampling frequency of the
-    % electroglottographic recording;
-    % smoothing step specified by user; 1, to indicate that the amplitude threshold
-    % for peak detection will be set automatically; the fourth value is the threshold value
-    % set manually; left at 0 to begin with, as the value will be set automatically
-    % and not manually.
+    % initialization of an extra variable to track whether changes
+    % must be made in the Oq values. It is set at 0 to begin with.
+    OqCHANGE = 0;
+
+    % assigning default values to <COEF> vector, used in the <FO> function.
+    % The four variables are:
+    % (i) sampling frequency of the electroglottographic recording;
+    % (ii) smoothing step (set above); 
+    % (iii) a variable that concerns the amplitude threshold for peak
+    % detection: if this variable is set at 1, then the amplitude threshold
+    % will be set automatically, as a proportion of the local maximum;
+    % (iv) the fourth value is the threshold value itself, when set
+    % manually by the user in view of visual inspection of the EGG signal.
+    % This value is left at 0 to begin with, as it will be set
+    % automatically during signal analysis.
     COEF = [FS smoothingstep 1 0];
 
-    % setting the value for threshold for peak detection: by default, half
-    % the size of the maximum peak
-    propthresh = 0.5;
-
+    % A loop is opened, which only closes when the user is satisfied
+    % with the results. The variable name for this loop is called <SATI>,
+    % for SATIsfactory or SATIsfaction. It is set at 0 to begin with.
+    % <peakdet_inter> allows the user to modify some of the parameters for
+    % analysis in view of the results, and to do some manual corrections.
+    SATI = 0;
     while SATI == 0
         % retrieving time of beginning and end, 
         % and converting from milliseconds to seconds
         time = [LENG(i,1)/1000 LENG(i,2)/1000];
         
-        % clearing previous results
+        % clearing previous results in <datasheet>. The three-dimensional
+        % matrix containing the results is like a notebook, in which each
+        % page (each sheet) concerns one item. Each line concerns one
+        % glottal cycle, and each column contains a different piece of
+        % information about this cycle, as explained further below.
+        % Thus: the lines are the first dimension, the columns are the
+        % second dimension, and the sheets are the third dimension.
         clear datasheet
         
-        % In case a number had been given to the item in the text file: displaying it 
+        % Displaying item number
+        disp(' ')
+        disp(' ')
+        disp(' ')
+        disp(['Currently treating item number ' num2str(i) '.'])
+        % In case a numeric label had been given to the item in the text file:
+        % displaying it. 
         if ~isempty(numb)
-            disp(' ')
-            disp(' ')
-            disp(' ')
-            disp(['Currently treating item that carries label ' num2str(numb(i)) '.'])
-        else
-            disp(' ')
-            disp(' ')
-            disp(' ')
-            disp(['Currently treating item on line ' num2str(i) ' of input text file.'])
+            disp(['This item carries label ' num2str(numb(i)) ' in the input file.'])
         end
         
 		% Extracting portion of signal corresponding to target item.
@@ -284,10 +312,11 @@ for i = 1:maxnb
             firstsample = 1;
         end
         lastsample = round(time(2) * FS);
-         if lastsample > length(SIG)
+        if lastsample > length(SIG)
             lastsample = length(SIG);
         end
-       
+        
+        % extracting relevant part of signal
 		[SIGpart] = SIG(firstsample:lastsample);
 		
         %%%%%%%%%%%%%% running main analysis programme
@@ -351,7 +380,7 @@ for i = 1:maxnb
             
 
             %%% plotting signals (EGG and dEGG), so the user can check visually the shape
-            %%% of the peaks. New feature, added in August 2007: the limits
+            %%% of the peaks. Since the version of August 2007, the limits
             %%% of the voiced portion as detected by the script are
             %%% indicated on the figures showing the EGG and dEGG signals.
             figure(2)
@@ -407,7 +436,7 @@ for i = 1:maxnb
                 correction_choice = 0;
                 % setting variable <OqCHAN> so that Oq values can be checked
                 % manually:
-                OqCHAN = 1;
+                OqCHANGE = 1;
             elseif cornb == 1
                 coefloop = 0;
                 while coefloop == 0
@@ -589,10 +618,10 @@ for i = 1:maxnb
                 SATI = 1;
                 % using an extra variable passed on below to know whether changes
                 % must be made in the Oq values
-                OqCHAN = 1;
+                OqCHANGE = 1;
             end
 
-            if OqCHAN == 1
+            if OqCHANGE == 1
                 choiceOq = 10;
                 while ~ismember(choiceOq,[0:4])
                     disp(['Item : ',num2str(i)])
