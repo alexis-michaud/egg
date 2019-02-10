@@ -420,13 +420,13 @@ for i = 1:nb_of_items
                % Selected y values are placed at 1/8th of the range from
                % the limit.
                ytoptext = ytop - (yrange / 8);
-               ybottomtext = ybottom + (yrange / 8);
+               ybottomtext = ybottom + (yrange / 10);
                % As for the lines indicating the closures, they are set off
                % from text at 1/5th of top, and at 1/8th of bottom (as the
                % dEGG signal is typically asymmetrical, with a zero line
                % closer to bottom).
                ybottomline = ybottom + (yrange / 8);
-               ytopline = ytop - (yrange / 5);
+               ytopline = ytop - (yrange / 8);
 
                for k = 1:length(datasheet(:,1))
                    clo = datasheet(k,1) * FS;
