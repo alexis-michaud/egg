@@ -69,7 +69,7 @@ for i = 1: length(ddREI) - 1
 end
 
 %%% if extra sign changes were detected: finding out which is the peak that is
-%%% to be selected for the calculation of Fo and Oq
+%%% to be selected for the calculation of f0 and Oq
 if numberofpeaks > 1
     %%%%%% calculating the amplitude ratio, and the distance, between 
     %%%%%% highest peak and each of the other peaks
@@ -94,7 +94,7 @@ if numberofpeaks > 1
 	peakvect = [];
     peakvect = TE;
     
-    % for calculation of Fo and Oq: yielding a single value, following the method
+    % for calculation of f0 and Oq: yielding a single value, following the method
 	% chosen by the user
     if method == 0
         %%%%% method "0": selecting the highest peak
@@ -154,29 +154,6 @@ if numberofpeaks > 1
             % is unchanged: it remains set at the peak amplitude of the highest maximum.
         % end of the loop for method 3    
         end
-
-	%         % In previous versions, only the coordinates of the second highest peak (time and amplitude)
-	%         % were retrieved, and stored in variables; either by a condition within the loop:       
-	%         if dREI(peakvect(i)) > valuesecondpeak
-	%             indexsecondpeak = peakvect(i);
-	%             valuesecondpeak = dREI(indexsecondpeak);
-	%         end
-	%         % or by retrieving the maximum of <dist>, i.e. the distance (in seconds)
-	%         % between the highest peak and the peak that is furthest from it in
-	%         % time. 
-	%         [validtime,POSITIO] = max(dist);
-	%         % retrieving corresponding amplitude ratio
-	%         valid = ampratio(POSITIO);
-	
-	
-	        % Remember that
-            % the coordinates of the second highest peak were recovered above, by
-            % the following lines: 
-	%         if (dist (i) > 5e-4) & ( dREI(peakvect(i)) > valuesecondpeak)
-	%             indexsecondpeak = peakvect(i);
-	%             valuesecondpeak = dREI(peakvect(i));
-	%         end
-
     elseif method == 4
         % method "4": excluding all double peaks. The <valid> variable is set at
         % two, and the peak will be excluded from calculations.

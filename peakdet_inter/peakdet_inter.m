@@ -1,4 +1,4 @@
-%% <peakdet_inter> (version 2.0)
+%% <peakdet_inter> 
 %% Software for the semi-automatic analysis of the electroglottographic signal
 % This script is for the analysis of a set of continuously voiced items:
 % for example, vowels, syllable rhymes, or sustained voiced sounds.
@@ -636,7 +636,16 @@ for i = 1:nb_of_items
                 end
                 disp('Fundamental frequency values: ')
                 disp(rot90(datasheet(:,3)))
-                cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
+                
+                % Setting the user defined variable at an out-of-range
+                % value, then requesting user input. 
+                cornb = length(datasheet(:,3)) + 1;
+                while ~ismember(cornb,[0:length(datasheet(:,3))]) 
+                    cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
+                    if ~ismember(cornb,[0:length(datasheet(:,3))])
+                        warning('Value out of range. Please enter another value.')
+                    end
+                end
                 if cornb > 0
                     disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
                     newvalue = input('Set new f0 value : ');

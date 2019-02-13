@@ -81,7 +81,7 @@ end
 
 % detecting points where the DEGG signal crosses the threshold; this is done
 % using the smoothed signal, otherwise the number of crossings may be very high
-% due to a saw-like shape of the signal
+% due to a saw-like shape of the signal.
 [rims] = CRO(SdSIG,COEF);
 
 % detection of the amplitude and position of the peaks (on the reinterpolated signal)

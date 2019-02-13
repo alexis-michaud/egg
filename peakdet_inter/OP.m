@@ -27,7 +27,7 @@ function [Oq,Oqval,DEOPA,goodperiods] = OP(simppeak,SIG,dSIG,valid,doublepeaks,C
 %
 % No use of autocorrelation or comparison across cycles, otherwise the method 
 % would not give results up to the end of voicing: border phenomena.
-% Passages where voice quality changes quickly are not found only at the offset
+% Passages where phonation type changes quickly are not found only at the offset
 % of voicing: they can be word-internal, as in the case of consonantal glottal
 % stops, ejectives, implosives, or glottalized tones, e.g. in Vietnamese tone
 % C2, which has medial glottal constriction.
@@ -41,35 +41,15 @@ function [Oq,Oqval,DEOPA,goodperiods] = OP(simppeak,SIG,dSIG,valid,doublepeaks,C
 Oqval = [];
 
 % creating a matrix containing the beginning and end of periods for which Oq
-% will be calculated. Values are converted to indices.
+% will be calculated. 
 goodperiods = [];
-
+% Values are converted to indices.
 if ~isempty(simppeak)
     if length(simppeak(:,1)) > 1
         for i = 1: length(simppeak(:,1)) - 1
             goodperiods(i,1) = round(simppeak(i,1) * (1 / Ts));
             goodperiods(i,2) = round(simppeak(i + 1,1) * (1 / Ts));
         end
-
-        % Previous calculation method: eliminating periods for which closing peaks are
-        % not unique:
-        % %%%%%%%%%%%%%%%%%%%%%% Determining periods for which closings are unique
-        % % Open quotient measurements are attempted only when closings are unique. For
-        % % each glottal cycle, there are two condition: 
-        % % 1) that the values associated to the peak in <valid> be
-        % % above 0.6, i.e. within the peak there is no other summit that is higher than
-        % % 60% of the highest summit
-        % % 2) that none of the neighbouring peaks be higher than 60% of the candidate peak.
-        % 
-        % goodperiods = []; 
-        % for i = 1:length(valid) - 1
-        %     if (doublepeaks(i) == 0) & (valid(i) < 0.6) & (doublepeaks(i + 1) == 0) & (valid(i) < 0.6)
-        %         goodperiodsnb = goodperiodsnb + 1;
-        %         goodperiods(goodperiodsnb,1) = Tgci(i,1);
-        %         goodperiods(goodperiodsnb,2) = Tgci(i + 1,1);
-        %     end
-        % end
-
 
         %%%%%%%%%%%%%%%%%%%%%% First measurement of openings: done by detecting
         %%%%%%%%%%%%%%%%%%%%%% local minima, without any condition on the values obtained.
@@ -86,10 +66,6 @@ if ~isempty(simppeak)
                     %% Calculation of Oq, in %
                     Oq(i) = 100 * ((  goodperiods(i,2) - GOI(i)  ) / (  goodperiods(i,2) - goodperiods(i,1)  ));
                 end
-        %     else
-        %         DEOPA = 0;
-        %         GOI = 0;
-        %         Oq = 0;
             end
         end
 
@@ -135,7 +111,8 @@ if ~isempty(simppeak)
                     COEFOPEN(3) = 0;
 
                     % setting the threshold for peak detection (empirically). Choice in
-                    % Henrich 2001:123 : setting it at 70% of the highest point.
+                    % Henrich 2001:123 : setting it at 70% of the highest
+                    % point. 
                     COEFOPEN(4) = 0.70 * max(dSIGextr);
 
                     % finding out the crossings with the DEGG signal. In the best cases, it is
@@ -145,7 +122,7 @@ if ~isempty(simppeak)
 
                     if isempty(rimsOPEN)
                         % If there is no single detected threshold crossing: the user should
-                        % changed the maximum F0 value and ask for the results to be
+                        % changed the maximum f0 value and ask for the results to be
                         % calculated anew. The user is advised to do so inside the <rim>
                         % function.
                         Oqval(i) = 0;
@@ -154,12 +131,12 @@ if ~isempty(simppeak)
                         % finding out the amplitude and position of the peaks. No
                         % reinterpolation of the signal is useful, as the signal-to-noise ratio in
                         % the negative part of the DEGG signal is poor. Quite the opposite: the
-                        % signal is smoothed (over 3 samples, i.e. 0.07 ms).
+                        % signal is smoothed. 
 
                         % The threshold for exclusion of small peaks is set at 0.7 in the case of 
                         % opening peaks, following Henrich 2001:123. This has in fact already
-                        % been applied before, in detection of peak rims by RIM; but the
-                        % function PEAKSHAPE called by AMPOS needs this input.
+                        % been applied before, in detection of peak rims by <rim.m>; but the
+                        % function <peakshape> called by AMPOS needs this input.
                         propthresh = 0.7;
                        % figure(1)
                        % clf
@@ -190,7 +167,6 @@ if ~isempty(simppeak)
                         % the last values are zero, then the length of the vector is less than
                         % the size of the Fo vector, resulting in assignment problems. So the
                         % value is set at zero in this programme.
-                        % inside the vector).
                         if length(simppeak(:,1)) == 1
                             % transforming the time of peak to an index
                             indexsimppeak = simppeak(1,1) * (1 / Ts);
@@ -205,9 +181,11 @@ if ~isempty(simppeak)
             end
         end
     else
+        % In case there is not even one cycle: empty matrices are returned.
         goodperiods = []; Oq = []; Oqval = []; DEOPA = [];
     end
 else
+    % In case there is not even one detected peak: empty matrices are returned.
     goodperiods = []; Oq = []; Oqval = []; DEOPA = [];
 end
         %%%%%%%%%%% The method for detecting opening peaks is fairly similar to
