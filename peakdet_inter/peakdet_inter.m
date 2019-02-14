@@ -650,7 +650,8 @@ for i = 1:nb_of_items
                     disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
                     newvalue = input('Set new f0 value : ');
                     datasheet(cornb,3) = newvalue;
-                    figure(4)
+                    % Opening a fifth figure.
+                    figure(5)
                     clf
                     plot(nonzeros(datasheet(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
                     xlabel('Corrected f_0 values. x axis: glottal cycles')            
@@ -740,9 +741,9 @@ for i = 1:nb_of_items
                                 disp(datasheet(cornb,10))
                                 disp('They are now set at zero, and will be excluded from the calculations.')
                             end
-                            disp('Refer to Figure 4 to see modified curve.')
+                            disp('Refer to Figure 5 to see modified curve.')
                             datasheet(cornb,10) = 0;
-                            figure(4)
+                            figure(5)
                             clf
                             plot(datasheet(:,10), 'LineStyle','--', 'Marker', '*','Color', 'black', 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
                             xlabel('Corrected O_q values. x axis: glottal cycles')            
@@ -794,18 +795,12 @@ for i = 1:nb_of_items
     save peakdet_tempdata data
 %    save peakdet_tempdata
     
-    % Housekeeping: closing the figures. This matters for figure 4, which
+    % Housekeeping: closing the figures. This matters for Figure 5, which
     % is only opened in a specific case (modifications to f0 values) and
     % would thus remain open (and unchanged) when treating the next token.
-    % For figures 1 to 3, on the other hand, it seems OK to leave them
+    % For Figures 1 to 4, on the other hand, it seems OK to leave them
     % open.
-% %     figure(1)
-% %     close
-% %     figure(2)
-% %     close
-% %     figure(3)
-% %     close
-    figure(4)
+    figure(5)
     close
     
 % end of syllable loop
