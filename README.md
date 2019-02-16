@@ -6,7 +6,7 @@ This repository hosts scripts for analysis of the electroglottographic signal, a
 ## 1) a gallery of signals exemplifying different types of glottalization (work in progress)
 See [this folder](gallery). This strand of work is linked to the project of devising new scripts for the detection and characterization of various phonetic subtypes of glottalization.
 
-## 2) `peakdet_inter`: a tool for semi-automatic analysis of electroglottographic signals (version 2)
+## 2) `peakdet_inter`: a tool for semi-automatic analysis of electroglottographic signals
 
 `peakdet` is a script for analyzing electroglottographic signals based on the detection of positive and negative peaks on the derivative of the EGG signal. 
 
