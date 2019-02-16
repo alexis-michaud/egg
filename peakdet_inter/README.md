@@ -11,7 +11,7 @@ The present version, by contrast, takes as input a list of regions to analyze
 and incorporates a (simple) display for verification of the results by the user. 
 This script is called `peakdet_inter`, where 'inter' stands for 'interface'.
 
-The back-end is also being improved, in order to handle better the great diversity of electroglottographic signals. 
+The back-end is being improved, in order to provide an increasingly fine-grained report on electroglottographic signals. 
 
 ## 1. Peaks vs. hills: detecting opening peaks inside glottalized pulses
 The first challenge tackled in the current (2019) development consists in detecting an opening peak that does not constitute a local minimum in the derivative of the EGG signal (dEGG). 
