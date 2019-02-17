@@ -42,7 +42,7 @@ function plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS)
        % dEGG signal is typically asymmetrical, with a zero line
        % closer to bottom).
        ybottomline = ybottom + (yrange / 8);
-       ytopline = ytop - (yrange / 4);
+       ytopline = ytop - (yrange / 1.5);
 
        for k = 1:length(datasheet(:,1))
            clo = datasheet(k,1) * FS;
