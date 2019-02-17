@@ -385,66 +385,8 @@ for i = 1:nb_of_items
             % of the voiced portion as detected by the script were
             % indicated on the figures showing the EGG and dEGG signals.)
             %
-            % Figure 2: electroglottographic signal.
-            figure(2)
-            clf
-            plot(SIGpart);
-            hold on
-            xlabel('Electroglottographic signal. Red bars: detected closures.')
+            plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS);
             
-            % Figure 3: first derivative.
-            figure(3)
-            clf
-            plot(SdSIG);
-            xlabel('Derivative of the EGG (after smoothing). Red bars: detected closures.')
-            hold on
-            
-            % Figure 4: second derivative.
-            figure(4)
-            clf
-            plot(SddSIG);
-            xlabel('Second derivative of the EGG (after smoothing). Red bars: detected closures.')
-            hold on
-            
-           %%% showing where the closures have been detected
-           % Loop for figures: 2 to 4
-           for m = 2:4
-               figure(m)
-               %%% finding out at which y coordinates the lines and numbers
-               %%% can be plotted 
-               % Extent of y axis:
-               ybottom_and_top = ylim;
-               ybottom = ybottom_and_top(1);
-               ytop = ybottom_and_top(2);
-               yrange = abs( ytop - ybottom );
-               % Selected y values are placed at 1/8th of the range from
-               % the limit.
-               ytoptext = ytop - (yrange / 8);
-               ybottomtext = ybottom + (yrange / 10);
-               % As for the lines indicating the closures, they are set off
-               % from text at 1/5th of top, and at 1/8th of bottom (as the
-               % dEGG signal is typically asymmetrical, with a zero line
-               % closer to bottom).
-               ybottomline = ybottom + (yrange / 8);
-               ytopline = ytop - (yrange / 8);
-
-               for k = 1:length(datasheet(:,1))
-                   clo = datasheet(k,1) * FS;
-                   % indicating the closing through a vertical bar 
-                   plot([clo clo],[ybottomline ytopline],'--r')
-                   % indicating number at top and bottom. Along the x axis:
-                   % write the figure *after* the glottis-closure instant,
-                   % so that it will be inside the interval corresponding
-                   % to the cycle.
-                   xtext = clo + 40;
-                   text(xtext,ytoptext,num2str(k),'Fontsize',13);
-                   text(xtext,ybottomtext,num2str(k),'Fontsize',13);
-               end
-               % Drawing the last closing
-               lastclo = datasheet(length(nonzeros(datasheet(:,2))),2) * FS;
-               plot([lastclo lastclo],[ybottomline ytopline],'-r')
-           end
-
             % tiling figures
             tilefigs([2 2])
             cornb = 4;
@@ -621,41 +563,17 @@ for i = 1:nb_of_items
                     end
                     % plotting the results
                     plotfig1(Oq, OqS, Oqval, OqvalS,f0);
+                    plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS);
                 end
                 correction_choice = 1;
             end
 
             % Manual corrections if desired
-            while correction_choice == 1
-                % showing the f0 values
-                % (after 90° rotation so the indices will be displayed)
-                if ~isempty(numb)
-                    disp(['Item that carries label ' num2str(numb(i)) '.'])
-                else
-                    disp(['Item on line ' num2str(i) ' of input text file.'])
-                end
-                disp('Fundamental frequency values: ')
-                disp(rot90(datasheet(:,3)))
-                
-                % Setting the user defined variable at an out-of-range
-                % value, then requesting user input. 
-                cornb = length(datasheet(:,3)) + 1;
-                while ~ismember(cornb,[0:length(datasheet(:,3))]) 
-                    cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
-                    if ~ismember(cornb,[0:length(datasheet(:,3))])
-                        warning('Value out of range. Please enter another value.')
-                    end
-                end
-                if cornb > 0
-                    disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
-                    newvalue = input('Set new f0 value : ');
-                    datasheet(cornb,3) = newvalue;
-                    % Opening a fifth figure.
-                    figure(5)
-                    clf
-                    plot(nonzeros(datasheet(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
-                    xlabel('Corrected f_0 values. x axis: glottal cycles')            
-                    ylabel('f_0 in Hz')
+            desiredyn = exist('correction_choice');
+            if desiredyn == 1
+                while correction_choice == 1
+                    % showing the f0 values
+                    % (after 90° rotation so the indices will be displayed)
                     if ~isempty(numb)
                         disp(['Item that carries label ' num2str(numb(i)) '.'])
                     else
@@ -663,14 +581,42 @@ for i = 1:nb_of_items
                     end
                     disp('Fundamental frequency values: ')
                     disp(rot90(datasheet(:,3)))
-                else
-                    correction_choice = 0;
+
+                    % Setting the user defined variable at an out-of-range
+                    % value, then requesting user input. 
+                    cornb = length(datasheet(:,3)) + 1;
+                    while ~ismember(cornb,[0:length(datasheet(:,3))]) 
+                        cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
+                        if ~ismember(cornb,[0:length(datasheet(:,3))])
+                            warning('Value out of range. Please enter another value.')
+                        end
+                    end
+                    if cornb > 0
+                        disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
+                        newvalue = input('Set new f0 value : ');
+                        datasheet(cornb,3) = newvalue;
+                        % Opening a fifth figure.
+                        figure(5)
+                        clf
+                        plot(nonzeros(datasheet(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+                        xlabel('Corrected f_0 values. x axis: glottal cycles')            
+                        ylabel('f_0 in Hz')
+                        if ~isempty(numb)
+                            disp(['Item that carries label ' num2str(numb(i)) '.'])
+                        else
+                            disp(['Item on line ' num2str(i) ' of input text file.'])
+                        end
+                        disp('Fundamental frequency values: ')
+                        disp(rot90(datasheet(:,3)))
+                    else
+                        correction_choice = 0;
+                    end
+                    % signalling that the programme does not need to be run again
+                    SATI = 1;
+                    % using an extra variable passed on below to know whether changes
+                    % must be made in the Oq values
+                    OqCHANGE = 1;
                 end
-                % signalling that the programme does not need to be run again
-                SATI = 1;
-                % using an extra variable passed on below to know whether changes
-                % must be made in the Oq values
-                OqCHANGE = 1;
             end
 
             if OqCHANGE == 1
@@ -732,7 +678,13 @@ for i = 1:nb_of_items
                         end
                         % if one or more non-zero values were given: make
                         % correction.
+                        % A condition is set to avoid out-of-range values.
                         if correction_choice == 1          
+                            if cornb(length(cornb)) > length(datasheet(:,10))
+                                while cornb(length(cornb)) > length(datasheet(:,10))
+                                    cornb = input(['Specified value is out of range. Number of cycles: ', num2str(length(datasheet(:,10))),'. Your choice: > ']);
+                                end
+                            end
                             if LE(2) == 1
                                 disp(['The specified value was ',num2str(datasheet(cornb,10)),'.'])
                                 disp('It is now set at zero, and will be excluded from the calculations.')
@@ -748,8 +700,62 @@ for i = 1:nb_of_items
                             plot(datasheet(:,10), 'LineStyle','--', 'Marker', '*','Color', 'black', 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
                             xlabel('Corrected O_q values. x axis: glottal cycles')            
                             ylabel('O_q in %')
+                            
+                            % Re-plot figures 2, 3 and 4 to remove the
+                            % spurious cycles
+                            
                         end
                     end
+                    % Once all the corrections have been made: re-plotting
+                    % Figure 1.
+                    disp('Corrections to Oq completed. Refer to Figure 1 to see the corrected results.')
+                    figure(1)
+                    clf
+
+                    % setting large font size for x and y scales
+                    h = axes;
+                    set(h,'Fontsize',12)
+                    
+                    % plotting f0. Colour: light green [0.0196 0.9686 0.6118],
+                    % later changed to deeper green [.0863 .7216 .3059] with
+                    % darker edges [0.12 0.63 0.33], then to green with a solid
+                    % line.
+                    % An idea for improvement: change the colour based on how close to creak it gets. 
+                    % There would be distinct scales for men's voices & women's voices, as appropriate.
+                    % For instance: one colour for the range below 30 Hz, another for the range from 30 to 60, another for 60 to 90, then another for above 90.
+                      %          plot(f0,'LineStyle','--','Marker', 'd','Color',[0.9373    0.6078    0.0588])
+                    plot(f0, 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+
+                    % ‘Hold on’: to avoid deletion of 1st plot at later plots. 
+                    hold on
+
+                    % Plotting only the values that have been selected.
+                    if choiceOq == 0
+                    	% values from unsmoothed signal, as filled stars
+                        % (pentagram) without connecting lines. Colour: a reddish Coral colour, to
+                        % stand out better. Values: RGB 231 62 1 = [0.9059 0.2431 0.0039]
+                        plot(datasheet(:,10), 'LineStyle','none', 'Marker', 'p','Color', 'red', 'MarkerSize',8, 'MarkerFaceColor', 'red')
+
+                    elseif choiceOq == 1
+                        % Plot boxes for Oq values obtained from maxima on smoothed signal. Orange filled
+                        % boxes. (Tried light green for the filled boxes, but that colour did not stand out
+                        % clearly from the blue colour.)
+                        % Colour later changed to lighter orange/yellow, for better contrast with the red stars.
+                        plot(datasheet(:,10), 'LineStyle','--', 'Marker', 's','Color', [1 .7961 .3765], 'MarkerSize',9, 'MarkerFaceColor', [1 .7961 .3765])
+
+                    elseif choiceOq == 2
+                    	% Oq values based on barycentre method, unsmoothed signal: shown as dark blue pentagrams
+                        plot(datasheet(:,10), 'LineStyle','none', 'Marker', 'p','Color', [0 0.0078 0.8824], 'MarkerSize',8, 'MarkerFaceColor', [0 0.0078 0.8824])
+
+                    elseif choiceOq == 3
+                        % Oq values based on barycentre method. Values based on
+                        % smoothed signal: shown as filled light-blue squares. 
+                        plot(datasheet(:,10), 'LineStyle','--', 'Marker', 's','Color', [0.1490 0.7686 0.9255], 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
+
+                    end
+
+                    xlabel('Plot of the corrected values of f0 and Oq after manual verification.')            
+                    ylabel('f_0 in Hz (green circles); O_q in %')
                 end
             end
 
