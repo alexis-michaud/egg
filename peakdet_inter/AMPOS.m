@@ -55,7 +55,7 @@ else
         if resampC > 1
             % creating vector containing <resampC> (for: RESAMPLINGCoefficient) times more points, 
             % for spline interpolation
-            timevector = [1:resampC * LP];
+            timevector = [resampC:resampC * LP];
             timevector = timevector / resampC;
             % cubic spline interpolation of the (original) EGG signal
 			REI = interp1(1:LP,peakSIG,timevector,'spline');
