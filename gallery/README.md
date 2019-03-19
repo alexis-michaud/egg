@@ -25,11 +25,11 @@ The approach chosen here consists in testing to what extent phonetic subtypes ca
 > kinds of voice production. (Keating et al. 2015)
 
 
-### 1. Pressed voice / glottal constriction / constricted creak
+### 1. Pressed voice / glottal constriction
 
-The first example is a token of strongly pressed voice, which can be called _constricted creak_ if one uses the term 'creak' broadly. 
+The first example is a token of strongly pressed voice. In the typology by Keating et al. (2015), it would probably be referred to as 'vocal fry'. 
 
-<img src="images/1_sig.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/. Signals.">
+<img src="images/1_sig.png" alt="First figure: pressed voice / glottal constriction. Muong speaker M1. Syllable /paj⁴/. Signals.">
 
 _Figure 1._ 
 
@@ -37,7 +37,7 @@ On the audio signal, there are hints of creak: longer pulses, of much smaller am
 
 Analysis of the EGG signal with `peakdet` yields the results shown in the figure below. (The data can be loaded into Matlab from the `1.mat` file). The x axis represents _glottal cycles_, which constitute data points in the results file.
 
-<img src="images/1.png" alt="First figure: constricted creak. Muong speaker M1. Syllable /paj⁴/ (meaning 'fruit'). Results of EGG analysis." height="288">
+<img src="images/1.png" alt="First figure: pressed voice / glottal constriction. Muong speaker M1. Syllable /paj⁴/ (meaning 'fruit'). Results of EGG analysis." height="288">
 
 _Figure 2. The x axis represents glottal cycles, which constitute data points in the results file._
 
@@ -47,19 +47,19 @@ Overall, this signal exemplifies voicing _on the verge of aperiodicity_. Phonati
 
 A similar example from a female speaker (F13) is shown below. It is a token of the same word, /paj⁴/. 
 
-<img src="images/1_F13_sig.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Signals.">
+<img src="images/1_F13_sig.png" alt="Pressed voice / glottal constriction. Muong speaker F13. Syllable /paj⁴/. Signals.">
 
 _Figure 3._
 
 Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially continuous. The open quotient can be assessed with precision: it goes down to values of about 30%, which is extremely low (remembering that for female speakers, as a general rule O<sub>q</sub> is higher than for men). 
 
-<img src="images/1_F13.png" alt="Constricted creak. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
+<img src="images/1_F13.png" alt="Pressed voice / glottal constriction. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 _Figure 4. The x axis represents glottal cycles, which constitute data points in the results file._
 
 ### 2. Single-pulse creak
 
-<img src="images/2_sig.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Signals.">
+<img src="images/2_sig.png" alt="Second figure: constriction going into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Signals.">
 
 _Figure 5._
 
@@ -67,7 +67,7 @@ Example 2, shown in Figure 5 (the same word as in example 1, by another speaker)
 
 But examples 1 and 2 differ in no less important respects, as brought out in the analysis results below. 
 
-<img src="images/2.png" alt="Second figure: constricted creak goes into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Results of EGG analysis." height="288">
+<img src="images/2.png" alt="Second figure: constriction going into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 _Figure 6. The x axis represents glottal cycles, which constitute data points in the results file._
 
@@ -137,7 +137,7 @@ In terms of fundamental frequency, only periods 24 to 28 (in Figure 10) show a p
 
 example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> | phonation mechanism |
 ------- | ----------- | ----------- | ----------- | ----------- |------- |------- | ----- |
-1 | constricted creak | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  | mechanism M1 |
+1 | pressed voice / glottal constriction | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  | mechanism M1 |
 2 | single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom | mechanism M0 |
 3 | multiply pulsed creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 or 3 | low, 'saw-like' | mechanism M0 |
 
