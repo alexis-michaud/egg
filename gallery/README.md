@@ -27,7 +27,7 @@ The approach chosen here consists in testing to what extent phonetic subtypes ca
 
 ### 1. Pressed voice / glottal constriction
 
-The first example is a token of strongly pressed voice. In the typology by Keating et al. (2015), it would probably be referred to as 'vocal fry'. 
+The first example is a token of strongly pressed voice. 
 
 <img src="images/1_sig.png" alt="First figure: pressed voice / glottal constriction. Muong speaker M1. Syllable /paj⁴/. Signals.">
 
