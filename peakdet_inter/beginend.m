@@ -187,7 +187,7 @@ elseif numer == 0
                C = strsplit(tline);
                % If there are 3 values: it may be an Audacity annotation
                % file. 
-               if length(C) == 3
+               if length(C) >= 3
                    % Replacing commas by dots (for decimals)
                    newC = strrep(C,',','.');
                    % retrieving the beginning, endpoint and label (still as
@@ -210,7 +210,7 @@ elseif numer == 0
                    % retrieving number given to the item in the Regions List, if any
                    NUMB = [];
                    i = 1;
-                   while i < length(str2num(labelstr(i)))
+                   while i <= length(labelstr)
                        if ismember(str2num(labelstr(i)),0:9)
                            NUMB = [NUMB labelstr(i)];
                            i = i + 1; 

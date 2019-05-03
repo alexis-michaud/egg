@@ -183,7 +183,7 @@ elseif numer == 0
        % Test to check whether there is relevant information in the line:
        % there are at least 2 figures in the line. 
        if length(tline) > 0
-           if length(str2num(tline)) > 1
+           % if length(str2num(tline)) > 1
                C = strsplit(tline);
                % If there are 3 values: it may be an Audacity annotation
                % file. 
@@ -210,15 +210,17 @@ elseif numer == 0
                    % retrieving number given to the item in the Regions List, if any
                    NUMB = [];
                    i = 1;
-                   while ismember(str2num(labelstr(i)),0:9)
-                       NUMB = [NUMB labelstr(i)];
-                       i = i + 1; 
+                   while i < length(labelstr)
+                       if ismember(str2num(labelstr(i)),0:9)
+                           NUMB = [NUMB labelstr(i)];
+                           i = i + 1; 
+                       end
                    end
                    if ~isempty(NUMB)
-                       numb(linecount - (badlines+1)) = str2num(NUMB);
+                       numb(linecount - (badlines)) = str2num(NUMB);
                    end
                end
-           end
+           % end
        else
                badlines = badlines + 1;
                disp('This line in the input file does not seem to contain')
