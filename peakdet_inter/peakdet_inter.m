@@ -255,10 +255,6 @@ nb_of_items = NumL;
 % loop for syllables
 for i = 1:nb_of_items
 
-    % initialization of an extra variable to track whether changes
-    % must be made in the Oq values. It is set at 0 to begin with.
-    OqCHANGE = 0;
-
     % assigning default values to <COEF> vector, used in the <FO> function.
     % The four variables are:
     % (i) sampling frequency of the electroglottographic recording;
@@ -279,6 +275,7 @@ for i = 1:nb_of_items
     % analysis in view of the results, and to do some manual corrections.
     SATI = 0;
     while SATI == 0
+        % Loop for user satisfaction with results for both f0 and Oq.
         % retrieving time of beginning and end, 
         % and converting from milliseconds to seconds
         time = [LENG(i,1)/1000 LENG(i,2)/1000];
@@ -340,267 +337,253 @@ for i = 1:nb_of_items
             SATI = 1;
         else
             for k = 1:length(f0)
-                datasheet(k,1) = simppeak(k,1);
-                datasheet(k,2) = simppeak(k + 1,1);
-                datasheet(k,3) = f0(k);
-                datasheet(k,4) = simppeak(k,2);
-                datasheet(k,5) = Oq(k);
-                datasheet(k,6) = DEOPAS(k);
-                datasheet(k,7) = OqS(k);
-                datasheet(k,8) = Oqval(k);
-                datasheet(k,9) = OqvalS(k);
+                    datasheet(k,1) = simppeak(k,1);
+                    datasheet(k,2) = simppeak(k + 1,1);
+                    datasheet(k,3) = f0(k);
+                    datasheet(k,4) = simppeak(k,2);
+                    datasheet(k,5) = Oq(k);
+                    datasheet(k,6) = DEOPAS(k);
+                    datasheet(k,7) = OqS(k);
+                    datasheet(k,8) = Oqval(k);
+                    datasheet(k,9) = OqvalS(k);
             end
 
             %%%%%%%%%%%%%%%%%%%%%%% visual check of results, and manual corrections
-            figure(1)
-            clf
-            
-            % Choice of theme: new colours are used in version 2, but the
-            % colours used in version 1 can still be used, 
-            % by setting <theme> to 1 instead of 2.
-            theme = 2;
-            
-            if theme == 1
-                % Colour theme of version 1
-                plot(OqS,'-pb')
-                hold on
-                plot(Oq,'*g')
-                plot(Oqval,'or')
-                plot(OqvalS,'sk')
-                % plotting f0
-                plot(f0,'-pb')
-                xlabel('Results of analysis. Fundamental frequency, and Oq calculated in 4 ways.')
-                ylabel('f_0 in Hz; O_q in %')
+            % Setting up a variable for user satisfaction with f0 values
+            SATIf0 = 0;
+            while SATIf0 ~=1
+                figure(1)
+                clf
 
-            elseif theme == 2
-                % Colour theme of version 2. This is now coded as a
-                % function.
-                plotfig1(Oq, OqS, Oqval, OqvalS, f0)
-            end
-            
+                % Choice of theme: new colours are used in version 2, but the
+                % colours used in version 1 can still be used, 
+                % by setting <theme> to 1 instead of 2.
+                theme = 2;
 
-            %%% plotting signals (EGG and dEGG), so the user can check visually the shape
-            %%% of the peaks. Detected cycles are marked by vertical lines.
-            % (Previously, since the version of August 2007, the limits
-            % of the voiced portion as detected by the script were
-            % indicated on the figures showing the EGG and dEGG signals.)
-            %
-            plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS);
-            
-            % tiling figures
-            tilefigs([2 2])
-            cornb = 4;
-            while ~ismember(cornb,[0 1 2 3])
-                % manual correction of f0
-                disp(' ')
-                disp(' ')
-                disp('Fundamental frequency values (inverse of cycle durations): ')
-                disp(rot90(datasheet(:,3)))
-                disp('If all the f0 values are correct, type 0 (zero).')
-                disp(' ')
-                disp('The red lines on figures 2 and 3 indicate the first and last detected glottal cycles.')
-                disp('If some of the glottal cycles went undetected, or extra cycles were erroneously detected, enter 1 (one).')
-                disp('You will then be asked to change the values of some of the settings.')
-                disp(' ')
-                disp('If you wish to correct some of the f0 values, enter 2.')
-                % It may happen that the portion of the EGG signal that was selected
-                % when placing the time boundaries includes a preceding glottal closure
-                % that should not in fact count as part of the voiced portion under
-                % investigation. In that case, it is useful for the user to be able to
-                % exclude this extra closing, which results in an extra cycle at
-                % beginning of syllable giving a wrong notion as to the duration of the
-                % syllable and the initial f0 and Oq values.
-                cornb = input('If the coefficient is correct but the initial/final cycle(s) must be suppressed, enter 3. > ');
-            end
-            if cornb == 0
-                % setting coefloop at 0, to exit the second "while" loop
-                coefloop = 0;
-                % setting <SATI> at 1, to exit the first "while" loop
-                SATI = 1;
-                correction_choice = 0;
-                % setting variable <OqCHAN> so that Oq values can be checked
-                % manually:
-                OqCHANGE = 1;
-            elseif cornb == 1
-                coefloop = 0;
-                while coefloop == 0
-                    disp(' ')
-                    disp(' ')
-                    disp('If too many glottal cycles were detected, you may change the threshold for maximum f0.')
-                    disp(['The present threshold is: ',num2str(maxF)]) 
-                    maxF = input('New value for the threshold (in Hz): > ');
-                    coefloop = 1;
-                    disp(' ')
-                    disp(' ')
-                    disp('If too few glottal cycles were detected, you may change the threshold for peak detection.')
-                    if COEF(3) == 1
-                        disp('The present threshold is set (by default) at 0.5 of the maximum in this portion of the signal.')
-                    else
-                        disp(['The present threshold is: ',num2str(COEF(4))]) 
-                    end
-                    disp(' - Enter a new value (absolute value; refer to figure to choose) for the threshold; or')
-                    disp(' - press RETURN to leave threshold unchanged; ')
-                    disp(' - type 0 in case the syllable needs to be analyzed as several distinct portions, i.e. ')
-                    disp('if the discrepancy in peak amplitude is such that no setting gives satisfactory result')
-                    coefchange = input('for the entire syllable. > ');
-                    if coefchange ~= 0
-                        COEF(3) = 0;
-                        if and (coefchange > COEF(4),COEF(4) > 0)
-                            disp('Warning: the new value is higher than the value previously set, ')
-                            confir = input(['which was ' num2str(COEF(4)) '. Are you sure? y/n > '],'s');
-                            if confir == 'y'
-                                COEF(4) = coefchange;
-                                propthresh = coefchange / max(SdSIG);
-                            else
-                                coefchange = input ('Set new value > ');
-                                COEF(4) = coefchange;
-                                propthresh = coefchange / max(SdSIG);
-                            end
-                        else
-                            COEF(4) = coefchange;
-                            propthresh = coefchange / max(SdSIG);
-                        end
-                        correction_choice = 0;
-                        coefloop = 1;
-                    elseif coefchange == 0
-                        disp('Enter the limit between the two portions to analyze (in samples; refer to')
-                        bound = input('the axis of the figure showing the DEGG and EGG signals) > ');
-                        coefchange1 = input('Amplitude for first part of syllable: ');
-                        coefchange2 = input('Amplitude for second part of syllable: ');
-                        COEF(3) = 0;
+                if theme == 1
+                    % Colour theme of version 1
+                    plot(OqS,'-pb')
+                    hold on
+                    plot(Oq,'*g')
+                    plot(Oqval,'or')
+                    plot(OqvalS,'sk')
+                    % plotting f0
+                    plot(f0,'-pb')
+                    xlabel('Results of analysis. Fundamental frequency, and Oq calculated in 4 ways.')
+                    ylabel('f_0 in Hz; O_q in %')
 
-                        % clearing previous results
-                        clear datasheet
-
-                        %%%%%%%%%%%%%% running main analysis programme again
-                        [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
-    FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
-
-% previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)      
-
-                        % setting a counter for number of cycles placed in results
-                        % matrix <datasheet>
-                        chosen = 0;
-                        for ii = 1:length(f0)
-                            if simppeak(ii,1) < bound/FS
-                                chosen = chosen + 1;
-                                datasheet(chosen,1) = simppeak(ii,1);
-                                datasheet(chosen,2) = simppeak(ii + 1,1);
-                                datasheet(chosen,3) = f0(ii);
-                                datasheet(chosen,4) = simppeak(ii,2);
-                                datasheet(chosen,5) = Oq(ii);
-                                datasheet(chosen,6) = DEOPAS(ii);
-                                datasheet(chosen,7) = OqS(ii);
-                                datasheet(chosen,8) = Oqval(ii);
-                                datasheet(chosen,9) = OqvalS(ii);
-                            end
-                        end
-                        % changing threshold
-                        COEF(4) = coefchange2;
-
-                        %%%%%%%%%%%%%% running main analysis programme again
-                        [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
-    FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
-
-% previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)            
-
-                        % assigning complementary results in file
-                        for ii = 1:length(f0)
-                            if simppeak(ii,1) > (bound/FS)
-                                chosen = chosen + 1;
-                                datasheet(chosen,1) = simppeak(ii,1);
-                                datasheet(chosen,2) = simppeak(ii + 1,1);
-                                datasheet(chosen,3) = f0(ii);
-                                datasheet(chosen,4) = simppeak(ii,2);
-                                datasheet(chosen,5) = Oq(ii);
-                                datasheet(chosen,6) = DEOPAS(ii);
-                                datasheet(chosen,7) = OqS(ii);
-                                datasheet(chosen,8) = Oqval(ii);
-                                datasheet(chosen,9) = OqvalS(ii);
-                            end
-                        end
-                        % plotting the results
-                        plotfig1(Oq, OqS, Oqval, OqvalS,f0);
-                     % setting the <correction> variable so the user can check the results
-                        correction_choice = 1;
-                        coefloop = input('Were the coefficients adequate? Enter 1 if yes, 0 if no. > ')
-                    end
+                elseif theme == 2
+                    % Colour theme of version 2. This is now coded as a
+                    % function.
+                    plotfig1(Oq, OqS, Oqval, OqvalS, f0)
                 end
-            elseif cornb == 2
-                correction_choice = 1;
-            elseif cornb == 3
-                lopoff = 0;
-                while lopoff == 0
-                    disp('  ')
-                    disp('To suppress first cycle, enter 1. To suppress last cycle, enter 9.');
-                    PERN = input('If no cycle suppression is needed, enter 0. > ');
-                    % if the first line must be suppressed:
-                    if PERN == 1
-                        TRANS = [];
-                        TRANS = datasheet(2:length(datasheet(:,1)),:);
-                        datasheet = [];
-                        datasheet = TRANS;
-                        % Also changing f0 and Oq, for plotting purposes
-                        f0 = f0(2:length(f0));
-                        Oq = Oq(2:length(Oq));
-                        OqS = OqS(2:length(OqS));
-                        Oqval = Oqval(2:length(Oqval));
-                        OqvalS = OqvalS(2:length(OqvalS));
-                    elseif PERN == 9
-                    % if the last line must be suppressed:
-                        TRANS = [];
-                        TRANS = datasheet(1:length(datasheet(:,1)) - 1,:);
-                        datasheet = [];
-                        datasheet = TRANS;
-                        % Also changing f0 and Oq, for plotting purposes
-                        f0 = f0(1:length(f0) - 1);
-                        Oq = Oq(1:length(Oq) - 1);
-                        OqS = OqS(1:length(OqS) - 1);
-                        Oqval = Oqval(1:length(Oqval) - 1);
-                        OqvalS = OqvalS(1:length(OqvalS) - 1);
-                    else
-                        lopoff = 1;
-                    end
-                    % plotting the results
-                    plotfig1(Oq, OqS, Oqval, OqvalS,f0);
-                    plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS);
-                end
-                correction_choice = 1;
-            end
 
-            % Manual corrections if desired
-            desiredyn = exist('correction_choice');
-            if desiredyn == 1
-                while correction_choice == 1
-                    % showing the f0 values
-                    % (after 90° rotation so the indices will be displayed)
-                    if ~isempty(numb)
-                        disp(['Item that carries label ' num2str(numb(i)) '.'])
-                    else
-                        disp(['Item on line ' num2str(i) ' of input text file.'])
-                    end
-                    disp('Fundamental frequency values: ')
+
+                %%% plotting signals (EGG and dEGG), so the user can check visually the shape
+                %%% of the peaks. Detected cycles are marked by vertical lines.
+                % (Previously, since the version of August 2007, the limits
+                % of the voiced portion as detected by the script were
+                % indicated on the figures showing the EGG and dEGG signals.)
+                %
+                plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS);
+
+                % tiling figures
+                tilefigs([2 2])
+                f0corChoice = 5;
+                while ~ismember(f0corChoice,[0 1 2 3 4])
+                    % manual correction of f0
+                    disp(' ')
+                    disp(' ')
+                    disp('Fundamental frequency values (inverse of cycle durations): ')
                     disp(rot90(datasheet(:,3)))
+                    disp('If all the f0 values are correct, type 0 (zero).')
+                    disp(' ')
+                    disp('The red lines on figures 2 and 3 indicate the first and last detected glottal cycles.')
+                    disp('If some of the glottal cycles went undetected, or extra cycles were erroneously detected:')
+                    disp('- enter 1 (one) to change the settings for automatic detection, or')
+                    disp('- enter 2 to make changes manually (by visual detection of cycles not detected by the script).')
+                    disp(' ')
+                    disp('If you wish to correct some of the f0 values manually, enter 3.')
+                    % It may happen that the portion of the EGG signal that was selected
+                    % when placing the time boundaries includes a preceding glottal closure
+                    % that should not in fact count as part of the voiced portion under
+                    % investigation. In that case, it is useful for the user to be able to
+                    % exclude this extra closing, which results in an extra cycle at
+                    % beginning of syllable giving a wrong notion as to the duration of the
+                    % syllable and the initial f0 and Oq values.
+                    f0corChoice = input('If the coefficient is correct but the initial/final cycle(s) must be suppressed, enter 4. > ');
+                end
+                if f0corChoice == 0
+                    % setting coefloop at 0, to exit the second "while" loop
+                    coefloop = 0;
+                    % setting <SATI> at 1, to exit the corresponding "while" loop,
+                    % and <SATIf0> at 1, to exit the initial "while" loop
+                    SATI = 1;
+                    SATIf0 = 1;
+                    correction_choice = 0;
+                elseif f0corChoice == 1
+                    coefloop = 0;
+                    while coefloop == 0
+                        disp(' ')
+                        disp(' ')
+                        disp('If too many glottal cycles were detected, you may change the threshold for maximum f0.')
+                        disp(['The present threshold is: ',num2str(maxF)]) 
+                        maxF = input('New value for the threshold (in Hz): > ');
+                        coefloop = 1;
+                        disp(' ')
+                        disp(' ')
+                        disp('If too few glottal cycles were detected, you may change the threshold for peak detection.')
+                        if COEF(3) == 1
+                            disp('The present threshold is set (by default) at 0.5 of the maximum in this portion of the signal.')
+                        else
+                            disp(['The present threshold is: ',num2str(COEF(4))]) 
+                        end
+                        disp(' - Enter a new value (absolute value; refer to figure to choose) for the threshold; or')
+                        disp(' - press RETURN to leave threshold unchanged; ')
+                        disp(' - type 0 in case the syllable needs to be analyzed as several distinct portions, i.e. ')
+                        disp('if the discrepancy in peak amplitude is such that no setting gives satisfactory result')
+                        coefchange = input('for the entire syllable. > ');
+                        if coefchange ~= 0
+                            COEF(3) = 0;
+                            if and (coefchange > COEF(4),COEF(4) > 0)
+                                disp('Warning: the new value is higher than the value previously set, ')
+                                confir = input(['which was ' num2str(COEF(4)) '. Are you sure? y/n > '],'s');
+                                if confir == 'y'
+                                    COEF(4) = coefchange;
+                                    propthresh = coefchange / max(SdSIG);
+                                else
+                                    coefchange = input ('Set new value > ');
+                                    COEF(4) = coefchange;
+                                    propthresh = coefchange / max(SdSIG);
+                                end
+                            else
+                                COEF(4) = coefchange;
+                                propthresh = coefchange / max(SdSIG);
+                            end
+                            correction_choice = 0;
+                            coefloop = 1;
+                        elseif coefchange == 0
+                            disp('Enter the limit between the two portions to analyze (in samples; refer to')
+                            bound = input('the axis of the figure showing the DEGG and EGG signals) > ');
+                            coefchange1 = input('Amplitude for first part of syllable: ');
+                            coefchange2 = input('Amplitude for second part of syllable: ');
+                            COEF(3) = 0;
 
-                    % Setting the user defined variable at an out-of-range
-                    % value, then requesting user input. 
-                    cornb = length(datasheet(:,3)) + 1;
-                    while ~ismember(cornb,[0:length(datasheet(:,3))]) 
-                        cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
-                        if ~ismember(cornb,[0:length(datasheet(:,3))])
-                            warning('Value out of range. Please enter another value.')
+                            % clearing previous results
+                            clear datasheet
+
+                            %%%%%%%%%%%%%% running main analysis programme again
+                            [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
+        FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
+
+    % previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)      
+
+                            % setting a counter for number of cycles placed in results
+                            % matrix <datasheet>
+                            chosen = 0;
+                            for ii = 1:length(f0)
+                                if simppeak(ii,1) < bound/FS
+                                    chosen = chosen + 1;
+                                    datasheet(chosen,1) = simppeak(ii,1);
+                                    datasheet(chosen,2) = simppeak(ii + 1,1);
+                                    datasheet(chosen,3) = f0(ii);
+                                    datasheet(chosen,4) = simppeak(ii,2);
+                                    datasheet(chosen,5) = Oq(ii);
+                                    datasheet(chosen,6) = DEOPAS(ii);
+                                    datasheet(chosen,7) = OqS(ii);
+                                    datasheet(chosen,8) = Oqval(ii);
+                                    datasheet(chosen,9) = OqvalS(ii);
+                                end
+                            end
+                            % changing threshold
+                            COEF(4) = coefchange2;
+
+                            %%%%%%%%%%%%%% running main analysis programme again
+                            [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG] = ...
+        FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
+
+    % previously:                        [f0,Oq,Oqval,DEOPA,goodperiods,OqS,OqvalS,DEOPAS,goodperiodsS,simppeak,SIG,dSIG,SdSIG] = FO(COEF,pathEGG,EGGfilename,time,method,propthresh,resampC,maxF)            
+
+                            % assigning complementary results in file
+                            for ii = 1:length(f0)
+                                if simppeak(ii,1) > (bound/FS)
+                                    chosen = chosen + 1;
+                                    datasheet(chosen,1) = simppeak(ii,1);
+                                    datasheet(chosen,2) = simppeak(ii + 1,1);
+                                    datasheet(chosen,3) = f0(ii);
+                                    datasheet(chosen,4) = simppeak(ii,2);
+                                    datasheet(chosen,5) = Oq(ii);
+                                    datasheet(chosen,6) = DEOPAS(ii);
+                                    datasheet(chosen,7) = OqS(ii);
+                                    datasheet(chosen,8) = Oqval(ii);
+                                    datasheet(chosen,9) = OqvalS(ii);
+                                end
+                            end
+                            % plotting the results
+                            plotfig1(Oq, OqS, Oqval, OqvalS,f0);
+                         % setting the <correction> variable so the user can check the results
+                            correction_choice = 1;
+                            coefloop = input('Were the coefficients adequate? Enter 1 if yes, 0 if no. > ')
                         end
                     end
-                    if cornb > 0
-                        disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
-                        newvalue = input('Set new f0 value : ');
-                        datasheet(cornb,3) = newvalue;
-                        % Opening a fifth figure.
-                        figure(5)
+                elseif f0corChoice == 2
+                    while f0corChoice == 2
+                        % initializing a variable <datasheetCORRECT>
+                        datasheetCORRECT = [];
+                        % getting user input on which cycle needs to be split.
+                        addcycles = input('Which glottal cycle needs to be split? Enter its number. > ');
+                        addNcycles = input('How many cycles can you detect (by eye) in this portion of the signal? > ');
+                        %%% adjusting <datasheet>: creating a new matrix, <datasheetCORRECT>
+                        % First, leaving the first lines unchanged: from 1 to (addcycles - 1).
+                        for ii = 1: addcycles - 1
+                            datasheetCORRECT(ii,:) = datasheet(ii,:);
+                        end
+                        % Next, padding with cycles indicated by the user.
+                        % f0: linear interpolation
+                        splitf0 = datasheet(addcycles,3) * addNcycles;
+                        % start and end:
+                        splitdur = (datasheet(addcycles,2) - datasheet(addcycles,1)) / addNcycles;
+                        for ii = addcycles:addcycles + (addNcycles - 1)
+                            datasheetCORRECT(ii,3) = splitf0;
+                            datasheetCORRECT(ii,1) = datasheet(addcycles,1) + (splitdur * (ii - addcycles));
+                            datasheetCORRECT(ii,2) = datasheet(addcycles,1) + (splitdur * (ii + 1 - addcycles));
+                        end
+                        % Lastly, copying the final cycles, from <addcycles> + 1 to
+                        % last. They need to be moved down <addNcycles> - 1 lines.
+                        for ii = (addcycles+1):length(f0)
+                            datasheetCORRECT(ii + (addNcycles - 1),:) = datasheet(ii,:);
+                        end
+
+                        % Showing the results to the user
+                        figure(1)
                         clf
-                        plot(nonzeros(datasheet(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
-                        xlabel('Corrected f_0 values. x axis: glottal cycles')            
-                        ylabel('f_0 in Hz')
+                        plot(datasheetCORRECT(:,3), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059]);
+                        % setting the <correction> variable so the user can check the results
+                        correction_choice = 1;
+                        coefloop = input('Is this the result you wanted? Enter 1 if yes, 0 if no. > ');
+                        if coefloop == 1
+                            % transferring results to <datasheet>
+                            clear datasheet;
+                            datasheet = datasheetCORRECT;
+                            % re-assigning results into vectors
+                            f0 = datasheet(:,3);
+                            Oq = datasheet(:,5);
+                            OqS = datasheet(:,7);
+                            Oqval = datasheet(:,8);
+                            OqvalS = datasheet(:,9);
+                            % changing value of <f0corChoice>, to exit the loop
+                            f0corChoice = 5;
+                        end
+                        % In case <coefloop> is set at zero: 
+                        % the programme will go back to the beginning of the
+                        % procedure for adjusting.
+                    end
+                elseif f0corChoice == 3
+                    % Manual corrections if desired
+                    correction_choice = 1;
+                    while correction_choice == 1
+                        % showing the f0 values
+                        % (after 90° rotation so the indices will be displayed)
                         if ~isempty(numb)
                             disp(['Item that carries label ' num2str(numb(i)) '.'])
                         else
@@ -608,151 +591,213 @@ for i = 1:nb_of_items
                         end
                         disp('Fundamental frequency values: ')
                         disp(rot90(datasheet(:,3)))
-                    else
-                        correction_choice = 0;
+
+                        % Setting the user defined variable at an out-of-range
+                        % value, then requesting user input. 
+                        cornb = length(datasheet(:,3)) + 1;
+                        while ~ismember(cornb,[0:length(datasheet(:,3))]) 
+                            cornb = input('If an f0 value needs to be corrected manually, enter its index in vector. Otherwise enter 0. > ');
+                            if ~ismember(cornb,[0:length(datasheet(:,3))])
+                                warning('Value out of range. Please enter another value.')
+                            end
+                        end
+                        if cornb > 0
+                            disp(['The f0 value was ',num2str(datasheet(cornb,3)),'.'])
+                            newvalue = input('Set new f0 value : ');
+                            datasheet(cornb,3) = newvalue;
+                            % Opening a fifth figure.
+                            figure(5)
+                            clf
+                            plot(nonzeros(datasheet(:,3)), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+                            xlabel('Corrected f_0 values. x axis: glottal cycles')            
+                            ylabel('f_0 in Hz')
+                            if ~isempty(numb)
+                                disp(['Item that carries label ' num2str(numb(i)) '.'])
+                            else
+                                disp(['Item on line ' num2str(i) ' of input text file.'])
+                            end
+                            disp('Fundamental frequency values: ')
+                            disp(rot90(datasheet(:,3)))
+                        else
+                            correction_choice = 0;
+                        end
+                        % signalling that the programme does not need to be run again
+                        SATI = 1;
                     end
-                    % signalling that the programme does not need to be run again
-                    SATI = 1;
-                    % using an extra variable passed on below to know whether changes
-                    % must be made in the Oq values
-                    OqCHANGE = 1;
+                elseif f0corChoice == 4
+                    lopoff = 0;
+                    while lopoff == 0
+                        disp('  ')
+                        disp('To suppress first cycle, enter 1. To suppress last cycle, enter 9.');
+                        PERN = input('If no cycle suppression is needed, enter 0. > ');
+                        % if the first line must be suppressed:
+                        if PERN == 1
+                            TRANS = [];
+                            TRANS = datasheet(2:length(datasheet(:,1)),:);
+                            datasheet = [];
+                            datasheet = TRANS;
+                            % Also changing f0 and Oq, for plotting purposes
+                            f0 = f0(2:length(f0));
+                            Oq = Oq(2:length(Oq));
+                            OqS = OqS(2:length(OqS));
+                            Oqval = Oqval(2:length(Oqval));
+                            OqvalS = OqvalS(2:length(OqvalS));
+                        elseif PERN == 9
+                        % if the last line must be suppressed:
+                            TRANS = [];
+                            TRANS = datasheet(1:length(datasheet(:,1)) - 1,:);
+                            datasheet = [];
+                            datasheet = TRANS;
+                            % Also changing f0 and Oq, for plotting purposes
+                            f0 = f0(1:length(f0) - 1);
+                            Oq = Oq(1:length(Oq) - 1);
+                            OqS = OqS(1:length(OqS) - 1);
+                            Oqval = Oqval(1:length(Oqval) - 1);
+                            OqvalS = OqvalS(1:length(OqvalS) - 1);
+                        else
+                            lopoff = 1;
+                        end
+                        % plotting the results
+                        plotfig1(Oq, OqS, Oqval, OqvalS,f0);
+                        plotfig2to4(SIGpart, SdSIG, SddSIG, datasheet, FS);
+                    end
+                end
+            end % End of loop for user satisfaction with f0 values.
+            
+            % Choice of Oq. 
+            choiceOq = 10;
+            while ~ismember(choiceOq,[0:4])
+                disp(['Item : ',num2str(i)])
+                disp('Please select Oq results among the four sets obtained by different methods:')
+                disp('- by maxima on unsmoothed signal (shown as red stars): enter 0.')
+                disp('- by maxima on smoothed signal (shown as orange squares): enter 1.')
+                disp('- as a barycentre of peaks on unsmoothed signal (shown as blue stars): enter 2.')
+                disp('- as a barycentre of peaks on smoothed signal (shown as blue squares): enter 3.')
+                disp('To exclude all Oq values for this item, enter 4.')
+                choiceOq = input('Your choice : ');
+            end
+
+            % placing chosen Oq values in 10th column of matrix.
+            if choiceOq == 0
+                for k = 1:length(datasheet(:,1))
+                     datasheet(k,10) = datasheet(k,5);
+                end
+            elseif choiceOq == 1
+                for k = 1:length(datasheet(:,1))
+                     datasheet(k,10) = datasheet(k,7);
+                end
+            elseif choiceOq == 2
+                for k = 1:length(datasheet(:,1))
+                     datasheet(k,10) = datasheet(k,8);
+                end
+            elseif choiceOq == 3
+                for k = 1:length(datasheet(:,1))
+                     datasheet(k,10) = datasheet(k,9);
+                end
+            elseif choiceOq == 4
+                for k = 1:length(datasheet(:,1))
+                     datasheet(k,10) = 0;
                 end
             end
 
-            if OqCHANGE == 1
-                choiceOq = 10;
-                while ~ismember(choiceOq,[0:4])
-                    disp(['Item : ',num2str(i)])
-                    disp('Please select Oq results among the four sets obtained by different methods:')
-                    disp('- by maxima on unsmoothed signal (shown as red stars): enter 0.')
-                    disp('- by maxima on smoothed signal (shown as orange squares): enter 1.')
-                    disp('- as a barycentre of peaks on unsmoothed signal (shown as blue stars): enter 2.')
-                    disp('- as a barycentre of peaks on smoothed signal (shown as blue squares): enter 3.')
-                    disp('To exclude all Oq values for this item, enter 4.')
-                    choiceOq = input('Your choice : ');
-                end
-
-                % placing chosen Oq values in 10th column of matrix.
-                if choiceOq == 0
-                    for k = 1:length(datasheet(:,1))
-                         datasheet(k,10) = datasheet(k,5);
+            % manual correction of open quotient values
+            correction_choice = 1;
+            if choiceOq ~= 4
+                while correction_choice == 1
+                    % If not all values have been excluded: listing the Oq values
+                    % obtained by the method chosen
+                    % (after 90° rotation so the indices will be displayed)
+                    disp('Open quotient values : ')
+                    disp(rot90(datasheet(:,10)))
+                    disp('If values need to be suppressed, enter their index in vector:')
+                    disp('for instance, 2 for 2nd value, 5:15 for values from 5 to 15.')
+                    OqcorChoice = input('If all the values are correct now, type 0. Your choice : ');
+                    % looking at whether the user specified one value or several
+                    LE = size(OqcorChoice);
+                    % in case one single value is specified, and this value is zero: stop
+                    % corrections.
+                    if LE(2) == 1
+                        if OqcorChoice == 0
+                            correction_choice = 0;
+                        end
                     end
-                elseif choiceOq == 1
-                    for k = 1:length(datasheet(:,1))
-                         datasheet(k,10) = datasheet(k,7);
-                    end
-                elseif choiceOq == 2
-                    for k = 1:length(datasheet(:,1))
-                         datasheet(k,10) = datasheet(k,8);
-                    end
-                elseif choiceOq == 3
-                    for k = 1:length(datasheet(:,1))
-                         datasheet(k,10) = datasheet(k,9);
-                    end
-                elseif choiceOq == 4
-                    for k = 1:length(datasheet(:,1))
-                         datasheet(k,10) = 0;
-                    end
-                end
-
-                % manual correction of open quotient values
-                correction_choice = 1;
-                if choiceOq ~= 4
-                    while correction_choice == 1
-                        % If not all values have been excluded: listing the Oq values
-                        % obtained by the method chosen
-                        % (after 90° rotation so the indices will be displayed)
-                        disp('Open quotient values : ')
-                        disp(rot90(datasheet(:,10)))
-                        disp('If values need to be suppressed, enter their index in vector:')
-                        disp('for instance, 2 for 2nd value, 5:15 for values from 5 to 15.')
-                        cornb = input('If all the values are correct now, type 0. Your choice : ');
-                        % looking at whether the user specified one value or several
-                        LE = size(cornb);
-                        % in case one single value is specified, and this value is zero: stop
-                        % corrections.
+                    % if one or more non-zero values were given: make
+                    % correction.
+                    % A condition is set to avoid out-of-range values.
+                    if correction_choice == 1          
+                        if OqcorChoice(length(OqcorChoice)) > length(datasheet(:,10))
+                            while OqcorChoice(length(OqcorChoice)) > length(datasheet(:,10))
+                                OqcorChoice = input(['Specified value is out of range. Number of cycles: ', num2str(length(datasheet(:,10))),'. Your choice: > ']);
+                            end
+                        end
                         if LE(2) == 1
-                            if cornb == 0
-                                correction_choice = 0;
-                            end
+                            disp(['The specified value was ',num2str(datasheet(OqcorChoice,10)),'.'])
+                            disp('It is now set at zero, and will be excluded from the calculations.')
+                        else
+                            disp('The specified values were:')
+                            disp(datasheet(OqcorChoice,10))
+                            disp('They are now set at zero, and will be excluded from the calculations.')
                         end
-                        % if one or more non-zero values were given: make
-                        % correction.
-                        % A condition is set to avoid out-of-range values.
-                        if correction_choice == 1          
-                            if cornb(length(cornb)) > length(datasheet(:,10))
-                                while cornb(length(cornb)) > length(datasheet(:,10))
-                                    cornb = input(['Specified value is out of range. Number of cycles: ', num2str(length(datasheet(:,10))),'. Your choice: > ']);
-                                end
-                            end
-                            if LE(2) == 1
-                                disp(['The specified value was ',num2str(datasheet(cornb,10)),'.'])
-                                disp('It is now set at zero, and will be excluded from the calculations.')
-                            else
-                                disp('The specified values were:')
-                                disp(datasheet(cornb,10))
-                                disp('They are now set at zero, and will be excluded from the calculations.')
-                            end
-                            disp('Refer to Figure 5 to see modified curve.')
-                            datasheet(cornb,10) = 0;
-                            figure(5)
-                            clf
-                            plot(datasheet(:,10), 'LineStyle','--', 'Marker', '*','Color', 'black', 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
-                            xlabel('Corrected O_q values. x axis: glottal cycles')            
-                            ylabel('O_q in %')
-                            
-                            % Re-plot figures 2, 3 and 4 to remove the
-                            % spurious cycles
-                            
-                        end
-                    end
-                    % Once all the corrections have been made: re-plotting
-                    % Figure 1.
-                    disp('Corrections to Oq completed. Refer to Figure 1 to see the corrected results.')
-                    figure(1)
-                    clf
+                        disp('Refer to Figure 5 to see modified curve.')
+                        datasheet(OqcorChoice,10) = 0;
+                        figure(5)
+                        clf
+                        plot(datasheet(:,10), 'LineStyle','--', 'Marker', '*','Color', 'black', 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
+                        xlabel('Corrected O_q values. x axis: glottal cycles')            
+                        ylabel('O_q in %')
 
-                    % setting large font size for x and y scales
-                    h = axes;
-                    set(h,'Fontsize',12)
-                    
-                    % plotting f0. Colour: light green [0.0196 0.9686 0.6118],
-                    % later changed to deeper green [.0863 .7216 .3059] with
-                    % darker edges [0.12 0.63 0.33], then to green with a solid
-                    % line.
-                    % An idea for improvement: change the colour based on how close to creak it gets. 
-                    % There would be distinct scales for men's voices & women's voices, as appropriate.
-                    % For instance: one colour for the range below 30 Hz, another for the range from 30 to 60, another for 60 to 90, then another for above 90.
-                      %          plot(f0,'LineStyle','--','Marker', 'd','Color',[0.9373    0.6078    0.0588])
-                    plot(f0, 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
-
-                    % ‘Hold on’: to avoid deletion of 1st plot at later plots. 
-                    hold on
-
-                    % Plotting only the values that have been selected.
-                    if choiceOq == 0
-                    	% values from unsmoothed signal, as filled stars
-                        % (pentagram) without connecting lines. Colour: a reddish Coral colour, to
-                        % stand out better. Values: RGB 231 62 1 = [0.9059 0.2431 0.0039]
-                        plot(datasheet(:,10), 'LineStyle','none', 'Marker', 'p','Color', 'red', 'MarkerSize',8, 'MarkerFaceColor', 'red')
-
-                    elseif choiceOq == 1
-                        % Plot boxes for Oq values obtained from maxima on smoothed signal. Orange filled
-                        % boxes. (Tried light green for the filled boxes, but that colour did not stand out
-                        % clearly from the blue colour.)
-                        % Colour later changed to lighter orange/yellow, for better contrast with the red stars.
-                        plot(datasheet(:,10), 'LineStyle','--', 'Marker', 's','Color', [1 .7961 .3765], 'MarkerSize',9, 'MarkerFaceColor', [1 .7961 .3765])
-
-                    elseif choiceOq == 2
-                    	% Oq values based on barycentre method, unsmoothed signal: shown as dark blue pentagrams
-                        plot(datasheet(:,10), 'LineStyle','none', 'Marker', 'p','Color', [0 0.0078 0.8824], 'MarkerSize',8, 'MarkerFaceColor', [0 0.0078 0.8824])
-
-                    elseif choiceOq == 3
-                        % Oq values based on barycentre method. Values based on
-                        % smoothed signal: shown as filled light-blue squares. 
-                        plot(datasheet(:,10), 'LineStyle','--', 'Marker', 's','Color', [0.1490 0.7686 0.9255], 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
+                        % Re-plot figures 2, 3 and 4 to remove the
+                        % spurious cycles
 
                     end
+                end
+                % Once all the corrections have been made: re-plotting
+                % Figure 1.
+                disp('Corrections to Oq completed. Refer to Figure 1 to see the corrected results.')
+                figure(1)
+                clf
+
+                % setting large font size for x and y scales
+                h = axes;
+                set(h,'Fontsize',12)
+
+                % plotting f0. Colour: light green [0.0196 0.9686 0.6118],
+                % later changed to deeper green [.0863 .7216 .3059] with
+                % darker edges [0.12 0.63 0.33], then to green with a solid
+                % line.
+                % An idea for improvement: change the colour based on how close to creak it gets. 
+                % There would be distinct scales for men's voices & women's voices, as appropriate.
+                % For instance: one colour for the range below 30 Hz, another for the range from 30 to 60, another for 60 to 90, then another for above 90.
+                  %          plot(f0,'LineStyle','--','Marker', 'd','Color',[0.9373    0.6078    0.0588])
+                plot(f0, 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059])
+
+                % ‘Hold on’: to avoid deletion of 1st plot at later plots. 
+                hold on
+
+                % Plotting only the values that have been selected.
+                if choiceOq == 0
+                    % values from unsmoothed signal, as filled stars
+                    % (pentagram) without connecting lines. Colour: a reddish Coral colour, to
+                    % stand out better. Values: RGB 231 62 1 = [0.9059 0.2431 0.0039]
+                    plot(datasheet(:,10), 'LineStyle','none', 'Marker', 'p','Color', 'red', 'MarkerSize',8, 'MarkerFaceColor', 'red')
+
+                elseif choiceOq == 1
+                    % Plot boxes for Oq values obtained from maxima on smoothed signal. Orange filled
+                    % boxes. (Tried light green for the filled boxes, but that colour did not stand out
+                    % clearly from the blue colour.)
+                    % Colour later changed to lighter orange/yellow, for better contrast with the red stars.
+                    plot(datasheet(:,10), 'LineStyle','--', 'Marker', 's','Color', [1 .7961 .3765], 'MarkerSize',9, 'MarkerFaceColor', [1 .7961 .3765])
+
+                elseif choiceOq == 2
+                    % Oq values based on barycentre method, unsmoothed signal: shown as dark blue pentagrams
+                    plot(datasheet(:,10), 'LineStyle','none', 'Marker', 'p','Color', [0 0.0078 0.8824], 'MarkerSize',8, 'MarkerFaceColor', [0 0.0078 0.8824])
+
+                elseif choiceOq == 3
+                    % Oq values based on barycentre method. Values based on
+                    % smoothed signal: shown as filled light-blue squares. 
+                    plot(datasheet(:,10), 'LineStyle','--', 'Marker', 's','Color', [0.1490 0.7686 0.9255], 'MarkerSize',11, 'MarkerFaceColor', [0.1490 0.7686 0.9255])
+
+                end
 
                     xlabel('Plot of the corrected values of f0 and Oq after manual verification.')            
                     ylabel('f_0 in Hz (green circles); O_q in %')
@@ -762,31 +807,29 @@ for i = 1:nb_of_items
 
             %%%%%%%%%%%%%% placing results in matrices
 
-              % checking that there is no doubling of the last line (this occasional
-              % problem results in a bug that I have not identified, which causes
-              % the last line to be written twice into the <datasheet> matrix)
-              ld = length(datasheet(:,1));
-              if ld > 1
+            % checking that there is no doubling of the last line (this occasional
+            % problem results in a bug that I have not identified, which causes
+            % the last line to be written twice into the <datasheet> matrix)
+            ld = length(datasheet(:,1));
+            if ld > 1
                   if datasheet(ld,:) == datasheet(ld - 1,:)
                       datasheet = datasheet(1:ld - 1,:);
                   end
-              end
+            end
 
-              % calculating the number of cycles (= nb of lines)
-              cycle_nb = size(datasheet,1);
+            % calculating the number of cycles (= nb of lines)
+            cycle_nb = size(datasheet,1);
 
-              % calculating the number of columns
-              nbcol = length(datasheet(1,:));
-              % assigning values in data matrix
-                      for q = 1:nbcol
-                        for r = 1:cycle_nb
-                            data(r,q,i) = datasheet(r,q);
-                        end
-                      end
-        % end of the condition on non-emptiness of f0 variable              
+            % calculating the number of columns
+            nbcol = length(datasheet(1,:));
+            % assigning values in data matrix
+            for q = 1:nbcol
+                 for r = 1:cycle_nb
+                       data(r,q,i) = datasheet(r,q);
+                 end
+            end
+        % end of the WHILE loop for user satisfaction
         end
-    % end of the WHILE loop
-    end
 
     % saving the results in a temporary data file: this can be recovered in
     % case MatLab suddenly closes (due to computer crash, power supply
