@@ -462,6 +462,36 @@ for i = 1:nb_of_items
                             end
                             correction_choice = 0;
                             coefloop = 1;
+                            % re-running main analysis programme
+                            [f0,Oq,Oqval,DEOPA,goodcycles,OqS,OqvalS,DEOPAS,goodcyclesS,simppeak,dSIG,SdSIG,ddSIG,SddSIG] = ...
+                        FO(COEF,method,propthresh,resampC,maxF,SIGpart,FS);
+                            %%% Placing main results in a single matrix
+                            % Structure of matrix: 
+                            % - beginning and end of cycle : in 1st and 2nd columns
+                            % - f0 : 3rd column
+                            % - DECPA : 4th column
+                            % - Oq determined from raw maximum, and DEOPA : 5th and 6th columns
+                            % - Oq determined from maximum after smoothing : 7th column
+                            % - Oq determined from peak detection : 8th and 9th colums without smoothing
+                            % and with smoothing, respectively.
+                            datasheet = [];
+                            if isempty(f0)
+                                disp('No single f0 value calculated for this item. Press any key to continue.')
+                                pause
+                                SATI = 1;
+                            else
+                                for k = 1:length(f0)
+                                        datasheet(k,1) = simppeak(k,1);
+                                        datasheet(k,2) = simppeak(k + 1,1);
+                                        datasheet(k,3) = f0(k);
+                                        datasheet(k,4) = simppeak(k,2);
+                                        datasheet(k,5) = Oq(k);
+                                        datasheet(k,6) = DEOPAS(k);
+                                        datasheet(k,7) = OqS(k);
+                                        datasheet(k,8) = Oqval(k);
+                                        datasheet(k,9) = OqvalS(k);
+                                end
+                            end
                         elseif coefchange == 0
                             disp('Enter the limit between the two portions to analyze (in samples; refer to')
                             bound = input('the axis of the figure showing the DEGG and EGG signals) > ');
