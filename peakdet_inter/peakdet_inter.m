@@ -401,9 +401,12 @@ for i = 1:nb_of_items
                     disp('The red lines on figures 2 and 3 indicate the first and last detected glottal cycles.')
                     disp('If some of the glottal cycles went undetected, or extra cycles were erroneously detected:')
                     disp('- enter 1 (one) to change the settings for automatic detection, or')
-                    disp('- enter 2 to make changes manually (by visual detection of cycles not detected by the script).')
+                    disp('- enter 2 to split one of the automatically detected cycles into two ')
+                    disp('(by visual detection of a cycle not detected by the script)')
+                    disp('- enter 3 to merge two automatically detected cycles ')
+                    disp('(if visual detection reveals a spurious cycle).')
                     disp(' ')
-                    disp('If you wish to correct some of the f0 values manually, enter 3.')
+                    disp('If you wish to correct some of the f0 values manually, enter 4.')
                     % It may happen that the portion of the EGG signal that was selected
                     % when placing the time boundaries includes a preceding glottal closure
                     % that should not in fact count as part of the voiced portion under
@@ -411,7 +414,7 @@ for i = 1:nb_of_items
                     % exclude this extra closing, which results in an extra cycle at
                     % beginning of syllable giving a wrong notion as to the duration of the
                     % syllable and the initial f0 and Oq values.
-                    f0corChoice = input('If the coefficient is correct but the initial/final cycle(s) must be suppressed, enter 4. > ');
+                    f0corChoice = input('If the coefficient is correct but the initial/final cycle(s) must be suppressed, enter 5. > ');
                 end
                 if f0corChoice == 0
                     % setting coefloop at 0, to exit the second "while" loop
@@ -609,6 +612,71 @@ for i = 1:nb_of_items
                         % procedure for adjusting.
                     end
                 elseif f0corChoice == 3
+                    while f0corChoice == 3
+                        % initializing a variable <datasheetCORRECT>
+                        datasheetCORRECT = [];
+                        % initializing a variable 
+                        mergecycles = 0;
+                        while (length(mergecycles) ~= 2) | ( mergecycles(1) < 1 ) | ( mergecycles(2) > length(datasheet(:,1)) )
+                            % getting user input on which cycle needs to be split.
+                            disp('Which glottal cycles need to be merged? Enter their numbers, separated by a colon.');
+                            disp('For instance, to merge cycles 4 and 5, type: > 4:5');
+                            mergecycles = input('> ');
+                        end
+                        
+                        %%% adjusting <datasheet>: creating a new matrix, <datasheetCORRECT>
+                        % First, leaving the first lines unchanged: from 1 to (addcycles - 1).
+                        for ii = 1: mergecycles(1) - 1
+                            datasheetCORRECT(ii,:) = datasheet(ii,:);
+                        end
+                        % Next, merging cycles indicated by the user.
+                        % f0 is recalculated.
+                        T_CORRECT = 1 / datasheet(mergecycles(1),3) + 1 / datasheet(mergecycles(2),3);
+                        f0_CORRECT = 1 / T_CORRECT;
+                        
+%                         % Other possible way to calculate f0: using the
+%                         % time codes
+%                         T = datasheet(mergecycles(2),2) - datasheet(mergecycles(1),1)
+
+                        % Writing the data line for the merged cycle
+                        datasheetCORRECT(mergecycles(1),1) = datasheet(mergecycles(1),1);
+                        datasheetCORRECT(mergecycles(1),2) = datasheet(mergecycles(2),2);
+                        datasheetCORRECT(mergecycles(1),3) = f0_CORRECT;
+                        datasheetCORRECT(mergecycles(1),4) = datasheet(mergecycles(1),4);
+                        % Oq is set at zero
+                        datasheetCORRECT(mergecycles(1),5:9) = 0;
+                        
+                        % Lastly, copying the final cycles, from <mergecycles(2)> + 1 to
+                        % last. They need to be moved down <addNcycles> - 1 lines.
+                        for ii = (mergecycles(2)+1):length(f0)
+                            datasheetCORRECT(ii - 1,:) = datasheet(ii,:);
+                        end
+
+                        % Showing the results to the user
+                        figure(1)
+                        clf
+                        plot(datasheetCORRECT(:,3), 'LineStyle','-', 'LineWidth', 1.5, 'Marker', 'o','Color', [.0863 .7216 .3059], 'MarkerSize',10, 'MarkerFaceColor', [.0863 .7216 .3059]);
+                        % setting the <correction> variable so the user can check the results
+                        correction_choice = 1;
+                        coefloop = input('Is this the result you wanted? Enter 1 if yes, 0 if no. > ');
+                        if coefloop == 1
+                            % transferring results to <datasheet>
+                            clear datasheet;
+                            datasheet = datasheetCORRECT;
+                            % re-assigning results into vectors
+                            f0 = datasheet(:,3);
+                            Oq = datasheet(:,5);
+                            OqS = datasheet(:,7);
+                            Oqval = datasheet(:,8);
+                            OqvalS = datasheet(:,9);
+                            % changing value of <f0corChoice>, to exit the loop
+                            f0corChoice = 5;
+                        end
+                        % In case <coefloop> is set at zero: 
+                        % the programme will go back to the beginning of the
+                        % procedure for adjusting.
+                    end
+                elseif f0corChoice == 4
                     % Manual corrections if desired
                     correction_choice = 1;
                     while correction_choice == 1
@@ -654,7 +722,7 @@ for i = 1:nb_of_items
                         % signalling that the programme does not need to be run again
                         SATI = 1;
                     end
-                elseif f0corChoice == 4
+                elseif f0corChoice == 5
                     lopoff = 0;
                     while lopoff == 0
                         disp('  ')

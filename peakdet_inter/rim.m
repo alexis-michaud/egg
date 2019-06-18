@@ -106,11 +106,13 @@ else
     % to make it an empty matrix, and not a nonexistent matrix.
     disp(' ')
     disp(' ')
-    error('No single peak has been detected in relevant portion of signal. See figure.')
+    disp('No single peak has been detected in relevant portion of signal. See figure.')
     figure
-	pause(2)
 	disp('xxxx test - dessin')
     plot(dSIG)
+    disp(' ')
+    disp('Press any key to continue.')
+    pause
     disp(' ')
     disp('Please verify the upper threshold set for fundamental frequency: ')
     disp('for instance, if it is set at 500 Hz, and the closing peaks do not stand out clearly')
