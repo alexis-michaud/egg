@@ -389,8 +389,8 @@ for i = 1:nb_of_items
 
                 % tiling figures
                 tilefigs([2 2])
-                f0corChoice = 5;
-                while ~ismember(f0corChoice,[0 1 2 3 4])
+                f0corChoice = 6;
+                while ~ismember(f0corChoice,[0 1 2 3 4 5])
                     % manual correction of f0
                     disp(' ')
                     disp(' ')
@@ -605,7 +605,7 @@ for i = 1:nb_of_items
                             Oqval = datasheet(:,8);
                             OqvalS = datasheet(:,9);
                             % changing value of <f0corChoice>, to exit the loop
-                            f0corChoice = 5;
+                            f0corChoice = 6;
                         end
                         % In case <coefloop> is set at zero: 
                         % the programme will go back to the beginning of the
@@ -670,7 +670,7 @@ for i = 1:nb_of_items
                             Oqval = datasheet(:,8);
                             OqvalS = datasheet(:,9);
                             % changing value of <f0corChoice>, to exit the loop
-                            f0corChoice = 5;
+                            f0corChoice = 6;
                         end
                         % In case <coefloop> is set at zero: 
                         % the programme will go back to the beginning of the
