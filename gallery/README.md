@@ -9,7 +9,7 @@ Present-day digital tools allow for including the data and tools in this reposit
 
 On a technical note: the scripts that create the figures require `export_fig`, a toolbox for exporting figures from MATLAB to standard image and document formats nicely (available [here](https://github.com/altmany/export_fig)). This is a great toolbox, but users who do not want to try it out can revert to the simpler `print` command by commenting out the `export_fig` command and uncommenting the `print` command in the last lines of the script that produces a figure.
 
-The work is now (2019) in its initial stage, with _glottalization_ as a first area of investigation. (Data and analyses by [Minh-Châu Nguyên](https://lacito.vjf.cnrs.fr/membres/nguyen_en.htm), under the supervision of Alexis Michaud, Lise Buchman and Didier Demolin. Pages maintained by Alexis Michaud. Comments, feedback & collaborations are most welcome.)
+The work is now (2019) in its initial stage, with _glottalization_ as a first area of investigation. (Data and analyses by [Minh-Châu Nguyên](https://lacito.cnrs.fr/membres/nguyen_en.htm), under the supervision of Alexis Michaud, Lise Buchman and Didier Demolin. Pages maintained by Alexis Michaud. Comments, feedback & collaborations are most welcome.)
 
 ## Types of glottalization: glottal constriction, creaky voice/vocal fry, irregular phonation...
 
@@ -25,9 +25,11 @@ The approach chosen here consists in testing to what extent phonetic subtypes ca
 > kinds of voice production. (Keating et al. 2015)
 
 
-### 1. Pressed voice / glottal constriction
+### 1. Pressed voice / glottal constriction / single-pulsed creak
 
-The first example is a token of strongly pressed voice. 
+The sifting of examples from Muong data suggests that there is a vast continuum between pressed voice, glottal constriction and single-pulsed creak. 
+
+The first example is a token with strongly pressed voice, which some would describe as having glottal constriction (a brief span of single-pulsed creak). 
 
 <img src="images/1_sig.png" alt="First figure: pressed voice / glottal constriction. Muong speaker M1. Syllable /paj⁴/. Signals.">
 
@@ -51,13 +53,13 @@ A similar example from a female speaker (F13) is shown below. It is a token of t
 
 _Figure 3._
 
-Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially continuous. The open quotient can be assessed with precision: it goes down to values of about 30%, which is extremely low (remembering that for female speakers, as a general rule O<sub>q</sub> is higher than for men). 
+Like in the token by speaker M1 (above), f<sub>0</sub> is still essentially continuous. The open quotient can be assessed with precision: it goes down to values of about 30%, which is extremely low (remembering that for female speakers, as a general rule O<sub>q</sub> is higher than for men). The span with glottal constriction (pressed voice) is longer than in the preceding example, and there is slightly less irregularity.
 
 <img src="images/1_F13.png" alt="Pressed voice / glottal constriction. Muong speaker F13. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 _Figure 4. The x axis represents glottal cycles, which constitute data points in the results file._
 
-### 2. Single-pulse creak
+Single-pulsed creak can be seen as an extreme form of pressed voice (as voicing goes into aperiodicity).
 
 <img src="images/2_sig.png" alt="Second figure: constriction going into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Signals.">
 
@@ -65,19 +67,17 @@ _Figure 5._
 
 Example 2, shown in Figure 5 (the same word as in example 1, by another speaker), is similar to example 1 in important respects: (i) cycles are long and consist of a single pulse (as opposed to the double-pulsed or multiple-pulsed patterns which will be described below); (ii) the auditory impression is one of constriction, rather than relaxed phonation; and (iii) cycle length increases again after reaching the lowest values (i.e. glottalization does not interrupt voicing). 
 
-But examples 1 and 2 differ in no less important respects, as brought out in the analysis results below. 
-
 <img src="images/2.png" alt="Second figure: constriction going into aperiodicity. Muong speaker M11. Syllable /paj⁴/. Results of EGG analysis." height="288">
 
 _Figure 6. The x axis represents glottal cycles, which constitute data points in the results file._
 
-First, periodicity is lost. (The inverse of cycle duration is nonetheless still referred to as ' f<sub>0</sub>' for convenience.) Five or six cycles of 'jittery' f<sub>0</sub> are followed by rock-bottom values (below 40 Hz): _extremely low-frequency_ phonation.
+In this example, periodicity is lost. This constitutes an important argument for speaking about creak, rather than pressed voice, as the latter suggests vocal fold compression, not loss of periodicity. (The inverse of cycle duration is nonetheless still referred to as ' f<sub>0</sub>' for convenience.) Five or six cycles of 'jittery' f<sub>0</sub> are followed by rock-bottom values (below 40 Hz): _extremely low-frequency_ phonation.
 
 Moreover, the opening peaks on the dEGG signal, which were still (just barely) clear enough in example 1 to allow for confident evaluation of the glottal open quotient, are so inconspicuous in example 2 that they tend to become indetectable, hence the disagreement between the values shown in blue and orange. It is not unreasonable, in view of the shape of the EGG signal, to consider that these cycles have an extremely short open phase, and the lowest O<sub>q</sub> values (those in orange, correcting for two outliers at the 9th and 15th cycles) provide good estimates: O<sub>q</sub> is on the order of just 20% (i.e. **rock-bottom values**, like for f<sub>0</sub>) for the longest cycles.
 
-Overall, example 2 can be described as more extreme than example 1: a clear lapse into creaky voice, with the lowest possible f<sub>0</sub> and O<sub>q</sub>, but still with a single pulse per cycle. Phonation is almost arrested by the strong constriction, and only continues 'pulse by pulse' as puffs of air find their way through the closed sphincter. 
+Overall, example 2 can be described as more extreme than example 1: a clear lapse into creaky voice, with the lowest possible f<sub>0</sub> and O<sub>q</sub>, but still with a single pulse per cycle. Phonation is almost arrested by the strong constriction, and only continues 'pulse by pulse' as puffs of air find their way through the closed sphincter. Example 2 is an extreme example, the like of which is not often encountered. Milder forms of pressed voice / glottal constriction are more common, as are cases of multiply-pulsed voice.
 
-### 3. Multiply pulsed voice
+### 2. Multiply pulsed voice
 
 Quoting from Keating, Garellek & Kreiman (2015: 2):
 
@@ -91,7 +91,7 @@ Quoting from Keating, Garellek & Kreiman (2015: 2):
 > octave higher, but the resulting percept is usually of
 > an indeterminate pitch, plus roughness.
 
-#### 3.1. Double-pulsed creak
+#### 2.1. Double-pulsed creak
 
 Contrasting with types 1 (pressed voice / glottal constriction) and 2 (single-pulse creak), a third type is _double-pulse creak_, shown in the example in Figures 7 and 8.
 
@@ -103,11 +103,11 @@ _Figures 7 and 8. In Figure 8, the x axis represents glottal cycles, which const
 
 This type can be characterized by detection of peaks in the dEGG signal corresponding to glottis-closure instants: knowing the duration of each glottal cycle is enough to notice the double pulses. But it is interesting to have evidence on the open quotient as well, in cases like this one, where opening peaks on the dEGG signal can be detected, and the open quotient calculated with some confidence: the O<sub>q</sub> values reveal that the longer glottal cycles have lower O<sub>q</sub> than the shorter ones. This offers an additional insight into the strong differences between the main pulse and the secondary pulse.
 
-#### 3.2. Triple-pulsed creak
+#### 2.2. Triple-pulsed creak
 
 (coming soon)
 
-### 4. Aperiodic creak
+### 3. Aperiodic creak
 
 This type corresponds to _aperiodic voice_ as characterized by Keating, Garellek & Kreiman (2015: 2). Quoting:
 
@@ -138,7 +138,7 @@ In terms of fundamental frequency, only periods 24 to 28 (in Figure 10) show a p
 example | label | materials | f<sub>0</sub> range | periodicity | n° of pulses | O<sub>q</sub> | phonation mechanism |
 ------- | ----------- | ----------- | ----------- | ----------- |------- |------- | ----- |
 1 | pressed voice / glottal constriction | /paj⁴/, speakers M1 and F13 | very low | almost quasi-periodic | 1 | very low  | mechanism M1 |
-2 | single-pulse creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom | mechanism M0 |
+2 | single-pulsed creak | /paj⁴/, speaker M11 | rock-bottom | aperiodic | 1 | rock-bottom | mechanism M0 |
 3 | multiply pulsed creak | /paj⁴/, speaker F13 | low | aperiodic, 'saw-like' | 2 or 3 | low, 'saw-like' | mechanism M0 |
 
 
