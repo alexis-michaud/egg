@@ -25,14 +25,3 @@ The version available in the present repository has an interface for visual veri
 ## 3) a script for visualizing average curves for sets of tokens: *aver*
 See [this folder](https://github.com/alexis-michaud/egg/tree/master/aver). 
 
-### About the language
-
-Currently the scripts are in `Matlab`. They work on Matlab 5 and later versions. The current version of `peakdet_inter` uses the function `audioread` to open WAV files (electroglottographic signals are handled like audio signals); this function was introduced in R2012b. If you use an earlier version of `Matlab`, simply revert to the older function: `wavread`.
-
-For a complete overhaul in future, adopting `Julia` would seem the way to go, for three main reasons: 
-* `Julia` is open source, and "when students are trained on open source software, they learn skills that are not hostage to a particular company or product, and can stay with them through their professional careers" (Viral Shah, from an interview with _Analytics India Magazine_).
-* Among open source languages, `Julia` is legible, and thus much better than `Perl` (typical 'write-only' language) or `Python`. It is also 'cleaner' than `R`.
-* `Julia` handles Unicode (which is absolutely essential for linguists, phoneticians...) whereas `Matlab` does not. 
-If you would be interested in adopting `Julia`, please let us know (for instance by opening an Issue) and we will consider re-programming `peakdet_inter` in this language.
-
-
